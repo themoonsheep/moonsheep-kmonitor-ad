@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'project_template',
     'moonsheep',
-    'project_template'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,1187 @@
+{% load static %}
+<form name="elForma" id="elForm" action="{{ form.get_absolute_url }}" method="post" {% if form_for_form.is_multipart %}enctype="multipart/form-data"{% endif %} role="form" class="center-block">
+    <input type="hidden" name="__document_id" value="{{ document.id }}"/>
+
+    <p class="step-x-y"></p>
+
+    <p class="step-title"></p>
+    {% csrf_token %}
+    <div id="slidedform" class="form">
+      <ul id="slide-list">
+        <li class="container-fluid">
+        <!-- SLIDE 1 -->
+
+           <div class="row">
+              <div class="col-md-12">
+                <div style="float:left;width:30%;">
+                  <img class="img-responsive" id="the-logo" src="{% static 'img/k-horizontalis_transp.gif' %}">
+                </div>
+              </div>
+                <div class="col-md-3">
+                     <img class="img-responsive mp-profile-pic" src="{{ mp.image_url }}" alt="{{ mp.name }}">
+                </div>
+                <div class="col-md-9">
+                     <h1>{{ mp.name }}</h1>
+                </div>
+
+                <div class="col-md-12">
+
+                     <h1>Személyes információk</h1>
+                     <div class="really-blue-line"></div>
+                </div>
+
+                <div class="col-md-8">
+                     <div class="form-group">
+                          <label for="spouse">Házas-/élettárs:</label>
+                          <input class="form-control" type="text" id="spouse" name="spouse" class="form-control">
+                     </div>
+                     <div class="form-group">
+                          <label for="child">Gyermek:</label>
+                          <input class="form-control" type="text" id="child" name="children[]" class="form-control">
+                     </div>
+
+                     <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 gyermek</button>
+                </div>
+          </div>
+        </li>
+<!-- SLIDE 2 -->
+        <li class="container-fluid">
+
+			<div class="row">
+				<!-- question -->
+				<div class="col-md-12">
+					<h1>Nyilatkozott-e valamilyen ingatlanról?</h1>
+					<div class="really-blue-line"></div>
+					<div class="row">
+						<div class="col-md-4">
+							 <div class="radio">
+								  <label for="radio1-1">
+									   <input type="radio" id="radio1-1" name="__radio1" value="yes" class="box-toggler" data-toggle-target=".contents-1"> Igen
+								  </label>
+							 </div>
+						</div>
+						<div class="col-md-4">
+							 <div class="radio">
+							   <label for="radio1-2">
+								 <input type="radio" id="radio1-2" name="__radio1" value="no"  class="box-toggler" data-toggle-target=".contents-1"> Nem
+							   </label>
+							 </div>
+						</div>
+					</div>
+				</div>
+				<!-- EOF question -->
+
+
+				<!-- START OF HIIDEN BOX 1 -->
+				<div class="hidden contents-1 col-md-12">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Vagyoni nyilatkozat / Ingatlanok</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label for="location">Település:</label>
+								<input class="form-control" type="text" name="location[]" class="form-control">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								 <label for="area">Az ingatlan teljes területe:</label>
+								 <input class="form-control" type="text" name="area[]" class="form-control">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Válassz</label>
+								<select class=" form-control" name="area_unit[]" title="unit">
+									<option value="sq" selected>négyzetméter</option>
+									<option value="ha">hektár</option>
+									<option value="negyszogol">négyszögöl</option>
+									<option value="akol">akol</option>
+									<option value="egyeb">egyéb</option>
+								</select>
+								<input type="text" class="form-control hidden other-input" name="area_unit_other[]" >
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+
+
+
+							<label for="area">Művelési ága:</label>
+
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="cultivation_checkbox1[]"> belterület/művelés alól kivett
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="cultivation_checkbox2[]"> külterület
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="cultivation_checkbox3[]"> lakás/lakóház
+								</label>
+							</div>
+				  <div class="row">
+							<!-- 	<div class="col-md-4">
+									<label>Egyéb:</label>
+								</div> -->
+								<div class="col-md-8">
+									<input type="text" name="cultivation_other[]" class="form-control" placeholder="Egyéb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+								<!-- It's part of the previous <h2>Building Info</h2>-->
+								<div class="col-md-4">
+								  <label>Fő rendeltetése</label>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="building_nature1[]"> garázs
+									</label>
+								  </div>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="building_nature2[]"> lakóház
+									</label>
+								  </div>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="building_nature3[]"> üdülő/nyaraló
+									</label>
+								  </div>
+								  <div class="row">
+								  <!--   <div class="col-md-4">
+									  <label>Egyéb:</label>
+									</div> -->
+									<div class="col-md-12">
+									   <input type="text" name="building_nature_other[]" class="form-control" placeholder="Egyéb">
+									</div>
+								  </div>
+								</div>
+
+								<div class="col-md-8">
+
+								  <div class="row">
+
+									<div class="col-md-6">
+										<label>Épület alapterülete:</label>
+									  <input type="text" class="form-control" name="building_area[]">
+									</div>
+									<div class="col-md-6">
+										<label>Válassz</label>
+									  <select class=" form-control" name="building_area_unit[]" title="unit">
+										<option value="sq" selected>négyzetméter</option>
+										<option value="ha">hektár</option>
+										<option value="negyszogol">négyszögöl</option>
+										<option value="akol">akol</option>
+										<option value="egyeb">egyéb</option>
+									  </select>
+									  <input type="text" class="form-control hidden other-input" name="building_area_unit_other[]" >
+									</div>
+								  </div>
+								</div>
+							  </div>
+							  <div class="row">
+								<div class="col-md-6">
+								  <h2>Ingatlan jogi jellege</h2>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="legal_designation1[]"> családi ház
+									</label>
+								  </div>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="legal_designation2[]"> társasház
+									</label>
+								  </div>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="legal_designation3[]"> garázs
+									</label>
+								  </div>
+								  <div class="row">
+									<!-- <div class="col-md-4">
+									  <label>Egyéb:</label>
+									</div> -->
+									<div class="col-md-8">
+									   <input type="text" name="legal_designation_other[]" class="form-control" placeholder="Egyéb">
+									</div>
+								  </div>
+								</div>
+
+								<div class="col-md-6">
+								  <h2>Nyilatkozó jogállása</h2>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="legal_status1[]"> tulajdonos
+									</label>
+								  </div>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="legal_status2[]"> haszonélvező
+									</label>
+								  </div>
+								  <div class="checkbox">
+									<label>
+									   <input type="checkbox" name="legal_status3[]"> bérlő
+									</label>
+								  </div>
+								  <div class="row">
+								  <!--  <div class="col-md-4">
+									  <label>Egyéb:</label>
+									</div> -->
+									<div class="col-md-8">
+									   <input type="text" name="legal_status_other[]" class="form-control" placeholder="Egyéb">
+									</div>
+								  </div>
+
+								</div>
+							  </div>
+							  <div class="row">
+								<div class="col-md-12">
+								  <h2>Tulajdoni hányad</h2>
+								</div>
+								<div class="col-md-2">
+								  <input class="form-control" type="text" name="ownership_ratio1[]">
+								</div>
+								<div class="col-md-2"><span class="out-of center-block">/</span></div>
+								<div class="col-md-2">
+								  <input class="form-control" type="text" name="ownership_ratio2[]">
+								</div>
+								<div class="col-md-2"><span class="or center-block">VAGY</span></div>
+								<div class="col-md-4">
+								  <div class="input-group">
+									<input type="text" name="ownership_ratio_percent[]" class="form-control" placeholder="százalék" aria-describedby="percent-addon">
+									<span class="input-group-addon" id="percent-addon">%</span>
+								  </div>
+								</div>
+							  </div>
+
+							  <div class="row">
+								<div class="col-md-12">
+								  <h2>Szerzés jogcíme</h2>
+								</div>
+								<div class="col-md-12">
+
+									<div class="row">
+
+										<div class="col-md-3">
+											<label>Szerzés jogcíme</label>
+										  <select id="select1" class=" form-control" name="acquisition1[0][]" data-live-search="true" title="Enter value" placeholder="">
+											<option value="choose" selected></option>
+											<option>adás-vétel</option>
+											<option>ajándékozás</option>
+											<option>életjáradéki</option>
+											<option>szerződés</option>
+											<option>építés</option>
+											<option>öröklés</option>
+											<option>telekcsere</option>
+											<option value="egyeb">egyéb</option>
+										  </select>
+										  <input type="text" name="acquisition-other[0][]" id="select1-other" class="hidden form-control other-input" placeholder="Enter value for the selection here">
+										</div>
+
+								  <div class="col-md-3">
+									<label>&Egrave;v</label>
+									<input class="form-control" name="acquisition-year[0][]" type="number" placeholder="év" maxlength="4" min="1800" max="2017">
+								  </div>
+								  <div class="col-md-3">
+									<label>Hónap</label>
+									<select class="form-control "  name="acquisition-month[0][]" placeholder="month" title="month" data-live-search="true">
+									  <option value="choose" selected>hónap</option>
+									  <option value="1">január</option>
+									  <option value="2">február</option>
+									  <option value="3">március</option>
+									  <option value="4">április</option>
+									  <option value="5">május</option>
+									  <option value="6">június</option>
+									  <option value="7">július</option>
+									  <option value="8">augusztus</option>
+									  <option value="9">szeptember</option>
+									  <option value="10">október</option>
+									  <option value="11">november</option>
+									  <option value="12">december</option>
+									</select>
+								  </div>
+									<div class="col-md-3">
+										<label>Nap</label>
+										<input class="form-control"  name="acquisition-day[0][]" type="number" placeholder="nap" maxlength="2" min="1" max="31">
+									</div>
+								</div>
+								<button class="btn btn-default repeater" type="button"><i class="fa fa-plus"></i>1 jogcím</button>
+
+							  </div>
+
+
+							  </div>
+
+							  <div class="row property-type">
+								<div class="col-md-12">
+								  <h2>Melyik típusba sorolnád az ingatlant?</h2>
+								</div>
+
+								<div class="col-md-4">
+								  <div class="radio">
+									<label class="center-block text-center">
+									  <i class="fa fa-5x fa-home"></i><br />
+									  <input type="radio" id="property_category" name="property_category[]" value="home">
+									</label>
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <div class="radio">
+									<label class="center-block text-center">
+									  <i class="fa fa-5x fa-map-o"></i><br />
+									  <input type="radio" name="property_category[]" value="map">
+									</label>
+								  </div>
+								</div>
+								<div class="col-md-4">
+								  <div class="radio">
+									<label class="center-block text-center">
+									  <i class="fa fa-5x fa-asterisk"></i><br />
+									  <input type="radio" name="property_category[]" value="asterisk">
+									</label>
+								  </div>
+								</div>
+								<div class="col-md-12">
+									<textarea class="feedback-flag form-control" rows="4" name="something_wrong[]" placeholder="Láttál valami gyanúsat? Volt valami, ami nem tiszta?"></textarea>
+								</div>
+							  </div>
+							</div>
+							<button id="section-repeater" class="hidden btn btn-lg btn-default repeater have-nested-repeats"><i class="fa fa-plus"></i>1 ingatlan hozzáadása</button>
+							<!-- eof hidden contents box -->
+						  </div>
+					  <!-- </div> -->
+            </li>
+<!-- slide 3 -->
+            <li class="container-fluid">
+              <div class="row">
+				<!-- question -->
+                <div class="col-md-12">
+					<h1>Nyilatkozott-e valamilyen nagy értékű ingóságról (járművek, műtárgyak)?</h1>
+					<div class="really-blue-line"></div>
+					<div class="row">
+					  <div class="col-md-4">
+						 <div class="radio">
+							<label for="radio1-v">
+							   <input type="radio" id="radio1-v" name="__radio1v" value="yes" class="box-toggler" data-toggle-target=".vehicles"> Igen
+							</label>
+						 </div>
+					  </div>
+					  <div class="col-md-4">
+						 <div class="radio">
+						   <label for="radio2-v">
+								<input type="radio" id="radio2-v" name="__radio1v" value="no"  class="box-toggler" data-toggle-target=".vehicles"> Nem
+						   </label>
+						 </div>
+					  </div>
+					</div>
+                </div>
+              <!-- EOF question -->
+
+                <div class="col-md-12 hidden vehicles">
+					<div class="row">
+						<div class="col-md-10">
+						  <h2>Gépjárművek</h2>
+						  <div class="row">
+							<div class="col-md-4">
+								<label>Gépjármű jellege</label>
+								<select class="form-control" name="vehicle_type[]" title="type">
+								<option value="choose" selected>Gépjármű jellege</option>
+								<option>személygépkocsi</option>
+								<option>tehergépjármű/autóbusz</option>
+								<option>motorkerékpár</option>
+							  </select>
+							</div>
+							<div class="col-md-4">
+								<label>Típusa</label>
+							  <input class="form-control" name="subtype[]" type="text" placeholder="Típusa">
+							</div>
+							<div class="col-md-4">
+								<label>Szerzés jogcíme</label>
+							  <select class="form-control" name="acq[]" title="Szerzés jogcíme">
+								<option value="choose" selected>Szerzés jogcíme</option>
+								<option>adás-vétel</option>
+								<option>ajándékozás</option>
+								<option>bérlés</option>
+								<option>lízing</option>
+								<option>öröklés</option>
+								<option value="egyeb">egyéb</option>
+							  </select>
+							  <input type="text" name="acq_other[]" class="form-control hidden other-input">
+							</div>
+							<div class="col-md-3">
+								<label>&Egrave;v</label>
+								<input class="form-control" name="classic-vehicle-year[]" type="number" placeholder="év" maxlength="4" min="1800" max="2017"></div>
+							<div class="col-md-3">
+								<label>Hónap</label>
+							  <select name="classic-vehicle-month[]" class="form-control selectpicker" placeholder="month" title="month" data-live-search="true">
+								<option value="choose" selected>hónap</option>
+								<option value="1">január</option>
+								<option value="2">február</option>
+								<option value="3">március</option>
+								<option value="4">április</option>
+								<option value="5">május</option>
+								<option value="6">június</option>
+								<option value="7">július</option>
+								<option value="8">augusztus</option>
+								<option value="9">szeptember</option>
+								<option value="10">október</option>
+								<option value="11">november</option>
+								<option value="12">december</option>
+							  </select>
+							</div>
+						  </div>
+						  <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 gépjármű</button>
+
+						  <h2>Vízi vagy légi jármű jellege </h2>
+						  <div class="row">
+							<div class="col-md-4">
+								<label>Egyéb jármű jellege</label>
+							  <input class="form-control" name="water_aero_type[]" placeholder="Vízi vagy légi jármű jellege">
+							</div>
+							<div class="col-md-4">
+								<label>Típus</label>
+							  <input class="form-control" name="wa_subtype[]" type="text" placeholder="Típus">
+							</div>
+							<div class="col-md-4"><label>Szerzés jogcíme</label>
+							  <select class="form-control" name="wa_acq[]" title="Szerzés jogcíme">
+								<option value="choose" selected>Szerzés jogcíme</option>
+								<option>adás-vétel</option>
+								<option>ajándékozás</option>
+								<option>bérlés</option>
+								<option>lízing</option>
+								<option>öröklés</option>
+								<option>egyéb</option>
+							  </select>
+							  <input type="text" name="wa_acq_other[]" class="form-control hidden other-input">
+							</div>
+							<div class="col-md-3"><label>&Egrave;v</label><input name="aw-vehicle-year[]" class="form-control" type="number" placeholder="év" maxlength="4" min="1800" max="2017"></div>
+							<div class="col-md-3">
+								<label>Hónap</label>
+							  <select class="form-control selectpicker" name="aw-vehicle-month[]" placeholder="month" title="month" data-live-search="true">
+								<option value="choose" selected>hónap</option>
+								<option value="1">január</option>
+								<option value="2">február</option>
+								<option value="3">március</option>
+								<option value="4">április</option>
+								<option value="5">május</option>
+								<option value="6">június</option>
+								<option value="7">július</option>
+								<option value="8">augusztus</option>
+								<option value="9">szeptember</option>
+								<option value="10">október</option>
+								<option value="11">november</option>
+								<option value="12">december</option>
+							  </select>
+							</div>
+						  </div>
+						  <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 jármű</button>
+
+						  <h2>Védett műalkotás, védett gyűjtemény és egyéb nagyobb értékű ingóságok </h2>
+						  <div class="row">
+							<div class="col-md-4">
+
+							  <select class="form-control" name="artwork_type[]" title="Védett műalkotás, védett gyűjtemény, egyéb értékes ingóság jellege">
+								<option value="choose" selected></option>
+								<option>egyedi alkotás</option>
+								<option>gyűjtemény</option>
+								<option>egyéb értéktárgy</option>
+							  </select>
+							</div>
+							<div class="col-md-4">
+							  <input class="form-control" name="artwork_name[]" placeholder="Megnevezés" type="text">
+							</div>
+							<div class="col-md-4">
+							  <input class="form-control" name="artwork_pieces[]" placeholder="db" type="text">
+							</div>
+
+							<div class="col-md-4">
+								<label >Szerzés jogcíme</label>
+							  <select class="form-control" name="artwork_acq[]" title="Szerzés jogcíme">
+								<option value="choose" selected>Szerzés jogcíme</option>
+								<option>adás-vétel</option>
+								<option>ajándékozás</option>
+								<option>bérlés</option>
+								<option>lízing</option>
+								<option>öröklés</option>
+								<option>egyéb</option>
+							  </select>
+							  <input type="text" name="artwork_acq_other[]" class="form-control hidden other-input">
+							</div>
+							<div class="col-md-3"><label >&Egrave;v</label><input name="art-year[]" class="form-control" type="number" placeholder="év" maxlength="4" min="1800" max="2017"></div>
+							<div class="col-md-3">
+								<label >Hónap</label>
+							  <select class="form-control selectpicker" name="art-month[]" placeholder="month" title="month" data-live-search="true">
+								<option value="choose" selected>hónap</option>
+								<option value="1">január</option>
+								<option value="2">február</option>
+								<option value="3">március</option>
+								<option value="4">április</option>
+								<option value="5">május</option>
+								<option value="6">június</option>
+								<option value="7">július</option>
+								<option value="8">augusztus</option>
+								<option value="9">szeptember</option>
+								<option value="10">október</option>
+								<option value="11">november</option>
+								<option value="12">december</option>
+							  </select>
+							</div>
+						  </div>
+					  <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 műtárgy</button>
+
+					</div>
+				</div>
+				</div>
+			  </div>
+          </li>
+
+
+<!-- Slide 4 -->
+            <li class="container-fluid">
+              <div class="row">
+				<div class="col-md-12">
+				  <h1>Nyilatkozik-e bármilyen megtakarításról, befektetésről, pénzkövetelésről?</h1>
+				  <div class="really-blue-line"></div>
+				  <div class="row">
+					<div class="col-md-4">
+					  <div class="radio">
+						<label for="radio2-1">
+						  <input type="radio" id="radio2-1" name="__radio2" value="yes" class="box-toggler" data-toggle-target=".contents-2"> Igen
+						</label>
+					  </div>
+					</div>
+					<div class="col-md-4">
+					  <div class="radio">
+						<label for="radio2-2">
+						  <input type="radio" id="radio2-2" name="__radio2" value="no"  class="box-toggler" data-toggle-target=".contents-2"> Nem
+						</label>
+					  </div>
+					</div>
+
+
+				  </div>
+				</div>
+          <!-- EOF question -->
+                <div class="hidden contents-2 col-md-12">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h2>Értékpapír vagy egyéb befektetés</h2>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <input type="text" name="inv_name[]" class="form-control" title="Értékpapírban elhelyezett megtakarítás, vagy egyéb befektetés" placeholder="Értékpapírban elhelyezett megtakarítás, vagy egyéb befektetés">
+                            </div>
+                            <div class="col-md-4">
+                              <input type="text" name="inv_value[]" class="form-control" title="Névérték" placeholder="Névérték">
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-control" name="inv_curr[]" title="pénznem">
+                                <option selected>HUF</option>
+                                <option>EUR</option>
+                                <option>CHF</option>
+                                <option>GBP</option>
+                                <option>USD</option>
+                                <option>darab</option>
+                                <option>egyéb</option>
+                              </select>
+							  <input type="text" class="form-control hidden other-input " name="inv_curr_other[]">
+                            </div>
+                          </div>
+                          <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h2>Takarék</h2>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <input type="text" name="sec_name[]" class="form-control" placeholder="Takarékbetétben elhelyezett megtakarítás"/>
+                        </div>
+                        <div class="col-md-4">
+                          <input type="text" name="sec_value[]" class="form-control" placeholder="Névérték"/>
+                        </div>
+                        <div class="col-md-4">
+                          <select class="form-control" name="sec_curr[]" title="pénznem">
+                            <option selected>HUF</option>
+                            <option>EUR</option>
+                            <option>CHF</option>
+                            <option>GBP</option>
+                            <option>USD</option>
+                            <option>darab</option>
+                            <option>egyéb</option>
+                          </select>
+						  <input type="text" class="form-control hidden other-input " name="sec_curr_other[]">
+                        </div>
+                      </div>
+                      <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
+                    </div>
+                    <div class="col-md-10">
+                      <h2>Készpénz</h2>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <input type="text" name="cash[]" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                          <select class="form-control" name="cash_curr[]" title="pénznem">
+                            <option selected>HUF</option>
+                            <option>EUR</option>
+                            <option>CHF</option>
+                            <option>GBP</option>
+                            <option>USD</option>
+                            <option>darab</option>
+                            <option>egyéb</option>
+                          </select>
+						  <input type="text" class="form-control hidden other-input " name="cash_curr_other[]">
+                        </div>
+                      </div>
+                      <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
+                    </div>
+                    <div class="col-md-10">
+                      <h2>Pénzintézeti számlakövetelés vagy más pénzkövetelés</h2>
+
+					  <div class="row">
+                        <div class="col-md-4">
+							<label>Számla- vagy pénzkövetelés</label>
+							<select class="form-control" name="obligation_type[]" title="Számla- vagy pénzkövetelés">
+								<option value="choose" selected>Számla- vagy pénzkövetelés</option>
+								<option>pénzintézeti számlakövetelés</option>
+								<option>más számlakövetelés</option>
+							</select>
+                        </div>
+                        <div class="col-md-4">
+							<label>&nbsp;</label>
+							<input type="text" name="obligation_value[]" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+							<label>Válassz</label>
+							<select class="form-control" name="obligation_curr[]" title="pénznem">
+								<option selected>HUF</option>
+								<option>EUR</option>
+								<option>CHF</option>
+								<option>GBP</option>
+								<option>USD</option>
+								<option>darab</option>
+								<option>egyéb</option>
+							</select>
+							<input type="text" class="form-control hidden other-input " name="obligation_curr_other[]">
+                        </div>
+                      </div>
+					  <button class="repeater btn btn-kmonitor" type="button"><i class="fa fa-plus"></i>1 </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+<!-- slide 5 -->
+            <li class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Nyilatkozik-e tartozásokról?</h1>
+                  <div class="really-blue-line"></div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio3-1">
+                          <input type="radio" id="radio3-1" name="__radio3" value="yes" class="box-toggler" data-toggle-target=".contents-3"> Igen
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio3-2">
+                          <input type="radio" id="radio3-2" name="__radio3" value="no"  class="box-toggler" data-toggle-target=".contents-3"> Nem
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="hidden contents-3 col-md-12" id="">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h2>Tartozások</h2>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <select class="form-control" name="debt_type[]" title="Tartozás típusa">
+                              <option value="choose" selected>Tartozás típusa</option>
+                              <option>köztartozás</option>
+                              <option>pénzintézeti</option>
+                              <option>magánszemélyi</option>
+                            </select>
+                          </div>
+                          <div class="col-md-8">
+                            <input type="text" name="debt_desc[]" class="form-control" placeholder="Megnevezés">
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="debt_value[]" class="form-control" placeholder="összeg">
+                          </div>
+                          <div class="col-md-8">
+                            <select class="form-control" name="debt_curr[]" title="pénznem">
+                              <option selected>HUF</option>
+                              <option>EUR</option>
+                              <option>CHF</option>
+                              <option>GBP</option>
+                              <option>USD</option>
+                              <option>darab</option>
+                              <option>egyéb</option>
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="debt_curr_other[]">
+                          </div>
+                        </div>
+
+
+                        <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 tartozás</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+<!-- slide 6 -->
+            <li class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Van-e valamilyen egyéb közlendője?</h1>
+                  <div class="really-blue-line"></div>
+                  <div class="row">
+                    <div class="col-md-4">
+
+                      <div class="radio">
+                        <label for="radio4-1">
+                          <input type="radio" id="radio4-1" name="__radio4" value="yes" class="box-toggler" data-toggle-target=".contents-4"> Igen
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio4-2">
+                          <input type="radio" id="radio4-2" name="__radio4" value="no"  class="box-toggler" data-toggle-target=".contents-4"> Nem
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="hidden contents-4 col-md-12" id="">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h2>Egyéb közlendők</h2>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <textarea name="comment" class="form-control" placeholder="Egyéb közlendők" rows="6"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+<!-- slide 7 -->
+            <li class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Nyilatkozik-e egyéb jövedelmeiről (Jövedelemnyilatkozat)?</h1>
+                  <div class="really-blue-line"></div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio5-1">
+                          <input type="radio" id="radio5-1" name="__radio5" value="yes" class="box-toggler" data-toggle-target=".contents-5"> Igen
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio5-2">
+                          <input type="radio" id="radio5-2" name="__radio5" value="no"  class="box-toggler" data-toggle-target=".contents-5"> Nem
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hidden contents-5 col-md-12">
+                    <h2>Foglalkozás</h2>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <input type="text" name="profession[]" class="form-control" placeholder="Foglalkozás">
+                          </div>
+                          <div class="col-md-6">
+                            <input type="text" name="employer[]" class="form-control" placeholder="Munkahelye/kifizető">
+                          </div>
+                          <div class="col-md-3">
+                            <select class="form-control" name="active[]" title="Szünetelteti?">
+                              <option value="choose" selected>Szünetelteti?</option>
+                              <option value="1">Igen</option>
+                              <option value="0">Nem</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3"><input type="text" name="income[]" class="form-control" placeholder="Jövedelme"></div>
+                          <div class="col-md-3">
+                            <select class="form-control" name="income_curr[]" title="pénznem">
+                              <option selected>HUF</option>
+                              <option>EUR</option>
+                              <option>CHF</option>
+                              <option>GBP</option>
+                              <option>USD</option>
+                              <option>darab</option>
+                              <option>egyéb</option>
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="income_curr_other[]">
+                          </div>
+                          <div class="col-md-3"><input type="text" name="regularity[]" class="form-control" placeholder="gyakoriság"></div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+<!-- slide 8 -->
+            <li class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Nyilatkozik-e gazdasági érdekeltségekről?</h1>
+                  <div class="really-blue-line"></div>
+                  <div class="row">
+                    <div class="col-md-4">
+
+                      <div class="radio">
+                        <label for="radio6-1">
+                          <input type="radio" id="radio6-1" name="__radio6" value="yes" class="box-toggler" data-toggle-target=".contents-6"> Igen
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio6-2">
+                          <input type="radio" id="radio6-2" name="__radio6" value="no"  class="box-toggler" data-toggle-target=".contents-6"> Nem
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hidden contents-6 col-md-12">
+
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h2>Gazdasági társaságban fennálló tisztség vagy érdekeltség</h2>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <input class="form-control" name="co_name[]" placeholder="Gazdasági társaság neve">
+                          </div>
+                          <div class="col-md-8">
+                            <input class="form-control" name="co_location[]" placeholder="Székhelye">
+                          </div>
+                          <div class="col-md-4">
+                            <select class="form-control" name="co_type[]" title="Formája">
+                              <option value="choose" selected>Formája</option>
+                              <option>Bt.</option>
+                              <option>erdőbirtoklási társulás</option>
+                              <option>Kft.</option>
+                              <option>nonprofit Kft.</option>
+                              <option>Nyrt.</option>
+                              <option>szövetkezet</option>
+                              <option>ügyvédi iroda</option>
+                              <option>Zrt.</option>
+                              <option>egyéb</option>
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="co_type_other[]">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <h2>Érdekeltség formája keletkezéskor</h2>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <select class="form-control" name="int_beginning[]" title="Érdekeltség formája keletkezéskor">
+                              <option value="choose" selected>Érdekeltség formája keletkezéskor</option>
+                              <option>alapító</option>
+                              <option>beltag</option>
+                              <option>kültag</option>
+                              <option>részvényes</option>
+                              <option>tulajdonos</option>
+                              <option>egyéb</option>
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="int_beginning_other[]">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-10">
+                        <h2>Érdekeltség formája jelenleg</h2>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <select class="form-control" name="int_now[]" title="Érdekeltség formája jelenleg">
+                              <option value="choose" selected>Érdekeltség formája jelenleg</option>
+                              <option>alapító</option>
+                              <option>beltag</option>
+                              <option>kültag</option>
+                              <option>részvényes</option>
+                              <option>tulajdonos</option>
+                              <option>egyéb</option>
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="int_now_other[]">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-10">
+                        <h2>Érdekeltség aránya keletkezéskor</h2>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-2">
+                                <input class="form-control" name="ownership_ratio_beg1[]" type="text">
+                              </div>
+                              <div class="col-md-2"><span class="out-of center-block">/</span></div>
+                              <div class="col-md-2">
+                                <input class="form-control" type="text" name="ownership_ratio_beg2[]">
+                              </div>
+                              <div class="col-md-2"><span class="or center-block">vagy</span></div>
+                              <div class="col-md-4">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="ownership_ratio_beg_percent[]" placeholder="százalék..." aria-describedby="percent-addon">
+                                  <span class="input-group-addon" id="percent-addon">%</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-10">
+                        <h2>Érdekeltség aránya jelenleg</h2>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-2">
+                                <input class="form-control" name="ownership_ratio_now1[]" type="text">
+                              </div>
+                              <div class="col-md-2"><span class="out-of center-block">/</span></div>
+                              <div class="col-md-2">
+                                <input class="form-control" type="text" name="ownership_ratio_now2[]">
+                              </div>
+                              <div class="col-md-2"><span class="or center-block">vagy</span></div>
+                              <div class="col-md-4">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="ownership_ratio_now_percent[]" placeholder="százalék..." aria-describedby="percent-addon">
+                                  <span class="input-group-addon" id="percent-addon">%</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="col-md-10">
+                        <h2>Nyereségből részesedés</h2>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="input-group">
+                              <input type="text" class="form-control" name="profitshare[]" placeholder="%..." aria-describedby="percent-addon">
+                              <span class="input-group-addon" id="percent-addon">%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <h2>Tisztség</h2>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <select class="form-control" name="position[]" title="Tisztség">
+                              <option value="choose" selected>Tisztség</option>
+                              <option>beltag</option>
+                              <option>elnök</option>
+                              <option>igazgatóság elnöke</option>
+                              <option>képviselő</option>
+                              <option>kültag</option>
+                              <option>szüneteltetve</option>
+                              <option>tag</option>
+                              <option>ügyvezető</option>
+                              <option>egyéb</option>
+
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="position_other[]">
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <button class="btn btn-default repeater hidden"><i class="fa fa-plus"></i>1 érdekeltség</button>
+                </div>
+              </div>
+            </li>
+
+<!-- slide 9 -->
+            <li class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Nyilatkozik-e bármilyen juttatásról, ajándékról, támogatásról?</h1>
+
+                  <div class="really-blue-line"></div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio7-1">
+                          <input type="radio" id="radio7-1" name="__radio7" value="yes" class="box-toggler" data-toggle-target=".contents-7"> Igen
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="radio">
+                        <label for="radio7-2">
+                          <input type="radio" id="radio7-2" name="__radio7" value="no"  class="box-toggler" data-toggle-target=".contents-7"> Nem
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="hidden contents-7 col-md-12" id="">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h2>Juttatás</h2>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <input type="text" name="benefit_date[]" class="form-control" placeholder="Juttatás ideje">
+                          </div>
+                          <div class="col-md-8">
+
+							<input type="text" class="form-control" name="benefit_name[]" title="Juttatás megnevezése">
+
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="benefit_value[]" class="form-control" placeholder="értéke">
+                          </div>
+                          <div class="col-md-4">
+                            <select class="form-control" name="benefit_curr[]" title="pénznem">
+                              <option selected>HUF</option>
+                              <option>törvényben alapján</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+
+                          </div>
+                        </div>
+                        <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 juttatás</button>
+                      </div>
+                      <div class="col-md-10">
+
+                        <h2 class="clearfix">Ajándék</h2>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <input type="text" name="present_date[]" class="form-control" placeholder="Ajándék ideje">
+                          </div>
+                          <div class="col-md-8">
+                            <!-- shouldn't it be input field -->
+                            <input class="form-control" name="present_name[]" title="Ajándék megnevezése" placeholder="Ajándék megnevezése"/>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="present_value[]" class="form-control" placeholder="Ajándék értéke">
+                          </div>
+                          <div class="col-md-4">
+                            <select class="form-control" name="present_currency[]" title="pénznem">
+                              <option selected>HUF</option>
+                              <option>törvényben alapján</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                          </div>
+                        </div>
+                        <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 ajándék</button>
+                      </div>
+
+
+
+                      <div class="col-md-10">
+                      <h2 class="clearfix">Támogatások</h2>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <input type="text" name="subs_reci[]" class="form-control" placeholder="Támogatás jogosultja">
+                          </div>
+                          <div class="col-md-6">
+                            <input type="text" name="subs_legal[]" class="form-control" placeholder="Megszerzés jogcíme">
+                          </div>
+
+                          <div class="col-md-4">
+                            <input type="text" name="subs_date[]" class="form-control" placeholder="Időpontja">
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="subs_provider[]" class="form-control" placeholder="Támogatást nyújtó">
+                          </div>
+                          <div class="col-md-4">
+                            <input type="text" name="subs_purpose[]" class="form-control" placeholder="Célja">
+                          </div>
+
+
+                          <div class="col-md-4">
+                            <input type="text" name="subs_value[]" class="form-control" placeholder="Értéke">
+                          </div>
+                          <div class="col-md-4">
+                            <select class="form-control" name="subs_curr[]" title="pénznem">
+                            <option selected>HUF</option>
+                            <option>EUR</option>
+                            <option>CHF</option>
+                            <option>GBP</option>
+                            <option>USD</option>
+                            <option>darab</option>
+                            <option>egyéb</option>
+                            </select>
+							<input type="text" class="form-control hidden other-input " name="subs_curr_other[]">
+                          </div>
+
+                        </div>
+                        <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 támogatás</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          {% if request.user.is_staff %}
+            <p> Instantly verify this document: <input type="checkbox" name="staff_force_verification"><br/>
+            Dear {{ request.user }}, leave it unchecked if you want this entry to be verified by others. Check if you're really sure it's correct and you don't want to wait for others.</p>
+          {% endif %}
+          <br />
+          <br />
+          <br />
+
+          <button class="btn btn-lg btn-kmonitor btn-lg" type="submit"><i class="fa fa-heartbeat"></i> Felszabadítom!</button >
+
+          <br />
+          <br />
+          <br />
+    </div>
+</form>

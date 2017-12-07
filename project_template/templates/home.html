@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{# load humanize #}
+{% load static %}
+
+{% block content %}
+    <header class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="logos col-md-6 col-md-offset-1">
+                    <a href="http://k-monitor.hu/"><img src="{%  static 'img/k-horizontalis_transp.gif' %}" width="320" /></a>
+                    <a href=http://www.direkt36.hu/><img class="direkt-36-logo-header" src="{%  static 'img/Direkt_logo_01.png' %}" width="215" /></a></div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+        {% if stats.liberated_declarations < stats.all_declarations_count %}
+        <div class="col-md-12">
+            <div class="row">
+              <div class="blue-line col-md-11">
+                <div class="row">
+                  <a class="cta col-md-2 col-md-offset-10" href="{% url 'task_intro' %}">Tegyél átláthatóbbá egy képviselőt!</a>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% endif %}
+      </header>
+
+      <section class="row context-section">
+        <div class="col-md-6 col-md-offset-1">
+          <p>Politikusaink kötelesek elszámolni vagyonukkal, hogy ne érhesse őket a korrupció vádja. Az általuk évről évre beadott, kézzel írt fecnik feldolgozásához kérjük a segítségedet. Önkéntes munkával egyetlen éjszaka alatt el tudjuk végezni azt, ami a képviselők dolga lenne: évekre visszamenőleg összehasonlítható, kereshető adatbázist gyúrunk a dokumentumokból, amiből másnap az egész ország tájékozódhat.</p>
+          <p>Harmadik éve tesszük átláthatóbbá önkéntesek segítségével a január 31-én elérhetővé váló vagyonbevallásokat. Nyiss meg egyet és vidd át a képviselő által megadott adatokat a beviteli lapra! Egy dokumentum kitöltéséhez körülbelül 10 percre van szükség.</p>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+          <h2>{{ stats_counted_from }} óta</h2>
+            <p class="infographic-top-number"><i class="fa fa-user-o" aria-hidden="true"></i> {{ stats.volunteers_count }}</p>
+            <p class="infographic-top-label">önkéntes</p>
+            <p class="infographic-top-number"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ stats.time_spent_hours }} órányi</p>
+            <p class="infographic-top-label">munkája</p>
+            <p class="infographic-top-number"><i class="fa fa-file-text-o" aria-hidden="true"></i> {{ stats.liberated_declarations_since_iceage }}</p>
+            <p class="infographic-top-label">felszabadított nyilatkozatot eredményezett</p>
+        </div>
+          {% if stats.liberated_declarations < stats.all_declarations_count %}
+        <a class="cta cta-main col-md-2 col-md-offset-5" href="{% url 'task_intro' %}">Kezdj bele!</a>
+          {% else %}
+          <a class="cta cta-main col-md-2 col-md-offset-5" href="#" onclick="return false;">Nagyszerűek vagytok!</a>
+          {% endif %}
+      </section>
+
+ {% if stats.liberated_declarations == stats.all_declarations_count %}
+    <section class="row context-section-2" style="margin-top: 20px;margin-bottom: -100px;">
+        <div class="col-md-11 col-md-offset-1">
+            <h2>Nagyszerűek vagytok!</h2>
+            <p>
+                Elértük a 100 százalékos feldolgozottságot a {{ reporting_year }}-os nyilatkozatok tekintetében! Nagyszerűek vagytok!
+                Csatlakozz hozzánk jövőre is! Az elkészült adatbázist letöltheted [innen](link to the final database), vagy hamarosan a <a href="http://vagyonkereso.hu/">Vagyonkereső.hu</a>-ról.
+                <br/><br/>
+                Ha fontosnak tartod a munkánkat, <a href="http://k-monitor.hu/tamogatas">támogasd te is a K-Monitort</a>!
+            </p>
+        </div>
+    </section>
+{% endif %}
+
+      <section class="row progress-section-1">
+            <div class="col-md-6 col-md-offset-3">
+              <h2>Folyamatban</h2>
+              <div class="progress-border">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{ stats.liberated_declarations }}" aria-valuemin="0" aria-valuemax="{{ stats.all_declarations_count }}" style="width: {{ stats.progress_percent }}%;">
+                    {{ stats.liberated_declarations }}/{{ stats.all_declarations_count }}
+                  </div>
+                </div>
+              </div>
+            </div>
+      </section>
+
+      <section class="row progress-section-2" style="display: none">
+        <div class="col-md-3 col-md-offset-3">
+          <p class="label-stat">Összes felszabadított megtakarítás:</p>
+          <p class="number-stat">9.340.000Ft</p>
+        </div>
+        <div class="col-md-3">
+          <p class="label-stat">Összes felszabadított tartozás:</p>
+          <p class="number-stat">715.000Ft</p>
+        </div>
+        <div class="col-md-6 col-md-offset-3 blue-divider">
+        </div>
+        <div class="col-md-2 col-md-offset-3">
+          <p class="label-stat">Legtöbb ingatlan:</p>
+          <p class="number-stat">12 <i class="fa fa-home" aria-hidden="true"></i></p>
+          <p class="mp-name-stat">Antal Rogán</p>
+        </div>
+        <div class="col-md-2">
+          <p class="label-stat">Legtöbb jármű</p>
+          <p class="number-stat">7 <i class="fa fa-car" aria-hidden="true"></i></p>
+          <p class="mp-name-stat">Gábor Vona</p>
+        </div>
+        <div class="col-md-2">
+          <p class="label-stat">Legtöbb tartozás</p>
+          <p class="number-stat">1.2M Ft</p>
+          <p class="mp-name-stat">Lajos Kósa</p>
+        </div>
+        <div class="col-md-12 gradient-divider"></div>
+      </section>
+
+      <section class="row context-section-2">
+        <div class="col-md-6 col-md-offset-1">
+          <h1>Valódi nyilvánosság, valódi ellenőrzés és valódi büntetés</h1>
+          <p>A jelenlegi vagyonnyilatkozati rendszer több sebből is vérzik. Az átlátható adatbázis önmagában nem nyújt megoldást arra, hogy tisztán lássuk, jogszerűen gazdagodnak-e a közpénzekről döntéseket. Az összehasonlítható és átlátható adatbázis mellett elengedhetetlen lenne azokat a jogszabályi változásokat is meghozni, amelyek lehetővé teszik a nyilatkozatok független vizsgálatát és amelyek keményen szankcionálják a valótlan adatszolgáltatást.</p>
+          <h1>Olvass a problémáról!</h1>
+          <p><a href="http://k.blog.hu/2017/01/18/vagyonnyilatkozatok_befolyasolas_atlathatosag">A K-Monitor álláspontja és jogalkolkotási javaslatai</a></p>
+          <p><a href="http://adatbazis.k-monitor.hu/adatbazis/cimkek/vagyonosodas">Korrupciós-közpénzes sajtóadatbázisunk számos vagyonosodásról szóló cikket tartalmaz</a></p>
+          <p><a href="http://vagyonkereso.hu/">A rendszerváltás óta eltelt időszak parlamenti képviselőinek vagyonnyilatkozatait a Vagyonkereső dolgozta fel</a></p>
+        </div>
+        <div class="col-md-4"><div class="call-out">A Vagyonnyilatkozatok hajnalán a te segítségeddel csináljuk meg azt, ami a hatóságok feladata lenne.</div></div>
+      </section>
+
+
+
+    {% if document_set.get_verified_documents.count > 0 %}
+    <!--
+    TG hid this because it was showing to everyone, not only super users
+    <div class="row download-section">
+        <div class="col-md-2 col-md-offset-5">
+            <a href="{% url 'crowdataapp.views.answers_view' document_set.id  %}" class="download-section-text cta">{{ _("Teljes adatbázis letöltése") }}</a>
+        </div>
+    </div> -->
+    {% endif %}
+{% endblock %}

@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+from moonsheep.views import TaskView
 from .views import *
 from .tasks import * # Keep it to make Moonsheep aware of defined tasks
 
@@ -22,5 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('moonsheep/', include('moonsheep.urls')),
 
-    path('', TranscriptionView.as_view(), name='transcription'),
+    path('', HomeView.as_view(), name='home'),
+    path('intro/', TaskIntroView.as_view(), name='task_intro'),
+    path('task/', TaskView.as_view(), name='task'),
 ]

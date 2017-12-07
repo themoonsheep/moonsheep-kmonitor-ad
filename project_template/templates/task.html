@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_scripts %}
+    <script src='{% static "crowdataapp/js/typeahead.min.js" %}'></script>
+    <script src='{% static "crowdataapp/js/jquery.inputmask.bundle.min.js" %}'></script>
+    <script src='{% static "crowdataapp/js/jquery.cookie.js" %}'></script>
+{% endblock %}
+
+{% block extra_styles %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 document-box">
+            <div id="document-viewer-container">
+                {% block task-presenter %}
+                    {% include presenter.template %}
+                {% endblock %}
+            </div>
+        </div>
+        <div id="document-transcript">
+            <div id="form-container" class="col-sm-12 col-md-12">
+                {% block task-form %}
+                    {% include task.task_form_template %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{# {% load humanize %} #}
+{% load static %}
+
+{% block content %}
+    <section class="row" id="liberate-mp">
+        <div class="col-md-2"></div>
+        <header class="col-md-10">
+            <h1>
+                Szia! A képviselő, akinek az <br />
+                adatait felszabadítani készülsz:
+            </h1>        
+        </header>
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <div class="blue-line attach-right"></div>
+        </div>
+        
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <div class="row" id="mp-data">
+                <div class="col-md-3">
+                    <img class="img-responsive mp-profile-pic" src="{{ mp.image_url }}" alt="{{ mp.name }}">
+                </div>
+                <div class="col-md-9">
+                    <h1>{{ mp.name }}</h1>
+                    <h3>{{ mp.party.name }}</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+            <section class="row" id="liberate-newsletter">
+                <div class="col-md-12">
+                    <div class="container">
+                        <!-- Begin MailChimp Signup Form -->
+                        <div id="mc_embed_signup" class="row">
+                            <form action="//k-monitor.us9.list-manage.com/subscribe/post?u=6171d5253941a1647c6df0695&amp;id=49e0f566b1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                <div id="mc_embed_signup_scroll">
+                                    <div class="col-md-12 center-block">
+                                        <h2 class="text-center">Add meg e-mail címed, ha szeretnéd megkapni az elkészült adatbázist és némi statisztikát.</h2>
+                                    </div>
+                                    <div class="sr-only indicates-required"><span class="asterisk">*</span> indicates required</div>
+                                    <div class="row">
+                                        <div class="col-md-3"> </div>
+                                        <div class="mc-field-group col-md-6 center-block">
+                                            <label for="mce-EMAIL" class="sr-only">E-mail cím  <span class="asterisk">*</span></label>
+                                            <input type="email" value="" name="EMAIL" placeholder="E-mail cím" class="form-control required email" id="mce-EMAIL">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3"> </div>
+                                        <div class="col-md-6 text-center">
+                                            <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-kmonitor">Iratkozz fel hìrlevel&uuml;nkre!</button>
+                                        </div>
+                                    </div>
+                                    <div id="mce-responses" class="clear">
+                                        <div class="response" id="mce-error-response" style="display:none"></div>
+                                        <div class="response" id="mce-success-response" style="display:none"></div>
+                                    </div>
+                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6171d5253941a1647c6df0695_49e0f566b1" tabindex="-1" value=""></div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                        <!--End mc_embed_signup-->
+                    </div>
+                </div>                
+            </section>
+            <div class="row">
+                <div class="col-md-12 gradient-divider"></div>
+            </div>
+            <section class="row" id="liberate-list">
+                <div class="col-md-12">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <ul class="start-list clearfix">
+                                    <li class="clearfix"><i class="fa fa-long-arrow-right fa-fw"></i> <span>Feladatod annyi, hogy a képviselő vagyonnyilatkozatából felvidd az adatokat a jobb oldali űrlapba.</span></li>
+                                    <li class="clearfix"><i class="fa fa-long-arrow-right fa-fw"></i> <span>Maradj hű a nyilatkozatban megadott adatokhoz, szöveghez.</span></li>
+                                    <li class="clearfix"><i class="fa fa-long-arrow-right fa-fw"></i> <span>Üres mezőket hagyd bátran üresen.</span></li>
+                                    <li class="clearfix"><i class="fa fa-long-arrow-right fa-fw"></i> <span>Ha a megadott válaszlehetőségek közt nem találsz megfelelőt, válaszd az egyéb opciót és írd be magad.</span></li>
+                                    <li class="clearfix"><i class="fa fa-long-arrow-right fa-fw"></i> <span>Ha bármi érdekeset vagy érthetetlent találtál, használd a szakaszok végén található megjegyzés mezőt.</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 col-md-offset-3">
+                                <a href="{% url 'task' %}{# TODO add task.id %} #}" class="cta">Start</a>
+                            </div>
+                            <div class="col-md-3"><a href="{{ request.path }}" class="btn btn-kmonitor">Másikat kérek</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    <div class="row">
+        <div class="col-md-12 ">
+            <span class="blue-text text-center">
+                Ha fontosnak tartod a munkánkat, <a href="http://www.k-monitor.hu">támogasd te is a K-Monitort!</a>
+            </span>
+        </div>
+    </div>
+
+{% endblock content %}
