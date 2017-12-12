@@ -1,0 +1,334 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block questions %}
+  <!-- question -->
+  <li class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Nyilatkozott-e valamilyen ingatlanról?</h1>
+        <div class="really-blue-line"></div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio1-1">
+                <input type="radio" id="radio1-1" name="__radio1" value="yes" class="box-toggler"
+                       data-toggle-target=".contents-1"> Igen
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio1-2">
+                <input type="radio" id="radio1-2" name="__radio1" value="no" class="box-toggler"
+                       data-toggle-target=".contents-1"> Nem
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- EOF question -->
+
+      <!-- START OF HIIDEN BOX 1 -->
+      <div class="hidden contents-1 col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Vagyoni nyilatkozat / Ingatlanok</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label for="location">Település:</label>
+              <input class="form-control" type="text" name="location[]" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="area">Az ingatlan teljes területe:</label>
+              <input class="form-control" type="text" name="area[]" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Válassz</label>
+              <select class=" form-control" name="area_unit[]" title="unit">
+                <option value="sq" selected>négyzetméter</option>
+                <option value="ha">hektár</option>
+                <option value="negyszogol">négyszögöl</option>
+                <option value="akol">akol</option>
+                <option value="egyeb">egyéb</option>
+              </select>
+              <input type="text" class="form-control hidden other-input" name="area_unit_other[]">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+
+
+            <label for="area">Művelési ága:</label>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="cultivation_checkbox1[]"> belterület/művelés alól kivett
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="cultivation_checkbox2[]"> külterület
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="cultivation_checkbox3[]"> lakás/lakóház
+              </label>
+            </div>
+            <div class="row">
+              <!-- 	<div class="col-md-4">
+                                    <label>Egyéb:</label>
+                                </div> -->
+              <div class="col-md-8">
+                <input type="text" name="cultivation_other[]" class="form-control" placeholder="Egyéb">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- It's part of the previous <h2>Building Info</h2>-->
+          <div class="col-md-4">
+            <label>Fő rendeltetése</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="building_nature1[]"> garázs
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="building_nature2[]"> lakóház
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="building_nature3[]"> üdülő/nyaraló
+              </label>
+            </div>
+            <div class="row">
+              <!--   <div class="col-md-4">
+                                  <label>Egyéb:</label>
+                                </div> -->
+              <div class="col-md-12">
+                <input type="text" name="building_nature_other[]" class="form-control" placeholder="Egyéb">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <label>Épület alapterülete:</label>
+                <input type="text" class="form-control" name="building_area[]">
+              </div>
+              <div class="col-md-6">
+                <label>Válassz</label>
+                <select class=" form-control" name="building_area_unit[]" title="unit">
+                  <option value="sq" selected>négyzetméter</option>
+                  <option value="ha">hektár</option>
+                  <option value="negyszogol">négyszögöl</option>
+                  <option value="akol">akol</option>
+                  <option value="egyeb">egyéb</option>
+                </select>
+                <input type="text" class="form-control hidden other-input" name="building_area_unit_other[]">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Ingatlan jogi jellege</h2>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="legal_designation1[]"> családi ház
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="legal_designation2[]"> társasház
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="legal_designation3[]"> garázs
+              </label>
+            </div>
+            <div class="row">
+              <!-- <div class="col-md-4">
+                                  <label>Egyéb:</label>
+                                </div> -->
+              <div class="col-md-8">
+                <input type="text" name="legal_designation_other[]" class="form-control" placeholder="Egyéb">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h2>Nyilatkozó jogállása</h2>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="legal_status1[]"> tulajdonos
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="legal_status2[]"> haszonélvező
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="legal_status3[]"> bérlő
+              </label>
+            </div>
+            <div class="row">
+              <!--  <div class="col-md-4">
+                                  <label>Egyéb:</label>
+                                </div> -->
+              <div class="col-md-8">
+                <input type="text" name="legal_status_other[]" class="form-control" placeholder="Egyéb">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Tulajdoni hányad</h2>
+          </div>
+          <div class="col-md-2">
+            <input class="form-control" type="text" name="ownership_ratio1[]">
+          </div>
+          <div class="col-md-2"><span class="out-of center-block">/</span></div>
+          <div class="col-md-2">
+            <input class="form-control" type="text" name="ownership_ratio2[]">
+          </div>
+          <div class="col-md-2"><span class="or center-block">VAGY</span></div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <input type="text" name="ownership_ratio_percent[]" class="form-control" placeholder="százalék"
+                     aria-describedby="percent-addon">
+              <span class="input-group-addon" id="percent-addon">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Szerzés jogcíme</h2>
+          </div>
+          <div class="col-md-12">
+
+            <div class="row">
+
+              <div class="col-md-3">
+                <label>Szerzés jogcíme</label>
+                <select id="select1" class=" form-control" name="acquisition1[0][]" data-live-search="true"
+                        title="Enter value" placeholder="">
+                  <option value="choose" selected></option>
+                  <option>adás-vétel</option>
+                  <option>ajándékozás</option>
+                  <option>életjáradéki</option>
+                  <option>szerződés</option>
+                  <option>építés</option>
+                  <option>öröklés</option>
+                  <option>telekcsere</option>
+                  <option value="egyeb">egyéb</option>
+                </select>
+                <input type="text" name="acquisition-other[0][]" id="select1-other"
+                       class="hidden form-control other-input"
+                       placeholder="Enter value for the selection here">
+              </div>
+
+              <div class="col-md-3">
+                <label>&Egrave;v</label>
+                <input class="form-control" name="acquisition-year[0][]" type="number" placeholder="év" maxlength="4"
+                       min="1800" max="2017">
+              </div>
+              <div class="col-md-3">
+                <label>Hónap</label>
+                <select class="form-control " name="acquisition-month[0][]" placeholder="month" title="month"
+                        data-live-search="true">
+                  <option value="choose" selected>hónap</option>
+                  <option value="1">január</option>
+                  <option value="2">február</option>
+                  <option value="3">március</option>
+                  <option value="4">április</option>
+                  <option value="5">május</option>
+                  <option value="6">június</option>
+                  <option value="7">július</option>
+                  <option value="8">augusztus</option>
+                  <option value="9">szeptember</option>
+                  <option value="10">október</option>
+                  <option value="11">november</option>
+                  <option value="12">december</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Nap</label>
+                <input class="form-control" name="acquisition-day[0][]" type="number" placeholder="nap" maxlength="2"
+                       min="1" max="31">
+              </div>
+            </div>
+            <button class="btn btn-default repeater" type="button"><i class="fa fa-plus"></i>1 jogcím</button>
+
+          </div>
+
+
+        </div>
+
+        <div class="row property-type">
+          <div class="col-md-12">
+            <h2>Melyik típusba sorolnád az ingatlant?</h2>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <label class="center-block text-center">
+                <i class="fa fa-5x fa-home"></i><br/>
+                <input type="radio" id="property_category" name="property_category[]" value="home">
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio">
+              <label class="center-block text-center">
+                <i class="fa fa-5x fa-map-o"></i><br/>
+                <input type="radio" name="property_category[]" value="map">
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio">
+              <label class="center-block text-center">
+                <i class="fa fa-5x fa-asterisk"></i><br/>
+                <input type="radio" name="property_category[]" value="asterisk">
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12">
+        <textarea class="feedback-flag form-control" rows="4" name="something_wrong[]"
+                  placeholder="Láttál valami gyanúsat? Volt valami, ami nem tiszta?"></textarea>
+          </div>
+        </div>
+      </div>
+      <!-- eof hidden contents box -->
+      <button id="section-repeater" class="hidden btn btn-lg btn-default repeater have-nested-repeats"><i
+        class="fa fa-plus"></i>1 ingatlan hozzáadása
+      </button>
+    </div>
+  </li>
+{% endblock %}

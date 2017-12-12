@@ -1,0 +1,200 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block questions %}
+  <li class="container-fluid">
+    <div class="row">
+      <!-- question -->
+      <div class="col-md-12">
+        <h1>Nyilatkozott-e valamilyen nagy értékű ingóságról (járművek, műtárgyak)?</h1>
+        <div class="really-blue-line"></div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio1-v">
+                <input type="radio" id="radio1-v" name="__radio1v" value="yes" class="box-toggler"
+                       data-toggle-target=".vehicles"> Igen
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio2-v">
+                <input type="radio" id="radio2-v" name="__radio1v" value="no" class="box-toggler"
+                       data-toggle-target=".vehicles"> Nem
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- EOF question -->
+
+      <div class="col-md-12 hidden vehicles">
+        <div class="row">
+          <div class="col-md-10">
+            <h2>Gépjárművek</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Gépjármű jellege</label>
+                <select class="form-control" name="vehicle_type[]" title="type">
+                  <option value="choose" selected>Gépjármű jellege</option>
+                  <option>személygépkocsi</option>
+                  <option>tehergépjármű/autóbusz</option>
+                  <option>motorkerékpár</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Típusa</label>
+                <input class="form-control" name="subtype[]" type="text" placeholder="Típusa">
+              </div>
+              <div class="col-md-4">
+                <label>Szerzés jogcíme</label>
+                <select class="form-control" name="acq[]" title="Szerzés jogcíme">
+                  <option value="choose" selected>Szerzés jogcíme</option>
+                  <option>adás-vétel</option>
+                  <option>ajándékozás</option>
+                  <option>bérlés</option>
+                  <option>lízing</option>
+                  <option>öröklés</option>
+                  <option value="egyeb">egyéb</option>
+                </select>
+                <input type="text" name="acq_other[]" class="form-control hidden other-input">
+              </div>
+              <div class="col-md-3">
+                <label>&Egrave;v</label>
+                <input class="form-control" name="classic-vehicle-year[]" type="number" placeholder="év" maxlength="4"
+                       min="1800" max="2017"></div>
+              <div class="col-md-3">
+                <label>Hónap</label>
+                <select name="classic-vehicle-month[]" class="form-control selectpicker" placeholder="month"
+                        title="month"
+                        data-live-search="true">
+                  <option value="choose" selected>hónap</option>
+                  <option value="1">január</option>
+                  <option value="2">február</option>
+                  <option value="3">március</option>
+                  <option value="4">április</option>
+                  <option value="5">május</option>
+                  <option value="6">június</option>
+                  <option value="7">július</option>
+                  <option value="8">augusztus</option>
+                  <option value="9">szeptember</option>
+                  <option value="10">október</option>
+                  <option value="11">november</option>
+                  <option value="12">december</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 gépjármű</button>
+
+            <h2>Vízi vagy légi jármű jellege </h2>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Egyéb jármű jellege</label>
+                <input class="form-control" name="water_aero_type[]" placeholder="Vízi vagy légi jármű jellege">
+              </div>
+              <div class="col-md-4">
+                <label>Típus</label>
+                <input class="form-control" name="wa_subtype[]" type="text" placeholder="Típus">
+              </div>
+              <div class="col-md-4"><label>Szerzés jogcíme</label>
+                <select class="form-control" name="wa_acq[]" title="Szerzés jogcíme">
+                  <option value="choose" selected>Szerzés jogcíme</option>
+                  <option>adás-vétel</option>
+                  <option>ajándékozás</option>
+                  <option>bérlés</option>
+                  <option>lízing</option>
+                  <option>öröklés</option>
+                  <option>egyéb</option>
+                </select>
+                <input type="text" name="wa_acq_other[]" class="form-control hidden other-input">
+              </div>
+              <div class="col-md-3"><label>&Egrave;v</label><input name="aw-vehicle-year[]" class="form-control"
+                                                                   type="number" placeholder="év" maxlength="4"
+                                                                   min="1800"
+                                                                   max="2017"></div>
+              <div class="col-md-3">
+                <label>Hónap</label>
+                <select class="form-control selectpicker" name="aw-vehicle-month[]" placeholder="month" title="month"
+                        data-live-search="true">
+                  <option value="choose" selected>hónap</option>
+                  <option value="1">január</option>
+                  <option value="2">február</option>
+                  <option value="3">március</option>
+                  <option value="4">április</option>
+                  <option value="5">május</option>
+                  <option value="6">június</option>
+                  <option value="7">július</option>
+                  <option value="8">augusztus</option>
+                  <option value="9">szeptember</option>
+                  <option value="10">október</option>
+                  <option value="11">november</option>
+                  <option value="12">december</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 jármű</button>
+
+            <h2>Védett műalkotás, védett gyűjtemény és egyéb nagyobb értékű ingóságok </h2>
+            <div class="row">
+              <div class="col-md-4">
+
+                <select class="form-control" name="artwork_type[]"
+                        title="Védett műalkotás, védett gyűjtemény, egyéb értékes ingóság jellege">
+                  <option value="choose" selected></option>
+                  <option>egyedi alkotás</option>
+                  <option>gyűjtemény</option>
+                  <option>egyéb értéktárgy</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <input class="form-control" name="artwork_name[]" placeholder="Megnevezés" type="text">
+              </div>
+              <div class="col-md-4">
+                <input class="form-control" name="artwork_pieces[]" placeholder="db" type="text">
+              </div>
+
+              <div class="col-md-4">
+                <label>Szerzés jogcíme</label>
+                <select class="form-control" name="artwork_acq[]" title="Szerzés jogcíme">
+                  <option value="choose" selected>Szerzés jogcíme</option>
+                  <option>adás-vétel</option>
+                  <option>ajándékozás</option>
+                  <option>bérlés</option>
+                  <option>lízing</option>
+                  <option>öröklés</option>
+                  <option>egyéb</option>
+                </select>
+                <input type="text" name="artwork_acq_other[]" class="form-control hidden other-input">
+              </div>
+              <div class="col-md-3"><label>&Egrave;v</label><input name="art-year[]" class="form-control" type="number"
+                                                                   placeholder="év" maxlength="4" min="1800" max="2017">
+              </div>
+              <div class="col-md-3">
+                <label>Hónap</label>
+                <select class="form-control selectpicker" name="art-month[]" placeholder="month" title="month"
+                        data-live-search="true">
+                  <option value="choose" selected>hónap</option>
+                  <option value="1">január</option>
+                  <option value="2">február</option>
+                  <option value="3">március</option>
+                  <option value="4">április</option>
+                  <option value="5">május</option>
+                  <option value="6">június</option>
+                  <option value="7">július</option>
+                  <option value="8">augusztus</option>
+                  <option value="9">szeptember</option>
+                  <option value="10">október</option>
+                  <option value="11">november</option>
+                  <option value="12">december</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 műtárgy</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+{% endblock %}

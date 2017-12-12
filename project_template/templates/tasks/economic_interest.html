@@ -1,0 +1,188 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block questions %}
+  <!-- slide 8: Nyilatkozik-e gazdasági érdekeltségekről? -->
+  <li class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Nyilatkozik-e gazdasági érdekeltségekről?</h1>
+        <div class="really-blue-line"></div>
+        <div class="row">
+          <div class="col-md-4">
+
+            <div class="radio">
+              <label for="radio6-1">
+                <input type="radio" id="radio6-1" name="__radio6" value="yes" class="box-toggler"
+                       data-toggle-target=".contents-6"> Igen
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio6-2">
+                <input type="radio" id="radio6-2" name="__radio6" value="no" class="box-toggler"
+                       data-toggle-target=".contents-6"> Nem
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden contents-6 col-md-12">
+
+          <div class="row">
+            <div class="col-md-10">
+              <h2>Gazdasági társaságban fennálló tisztség vagy érdekeltség</h2>
+              <div class="row">
+                <div class="col-md-8">
+                  <input class="form-control" name="co_name[]" placeholder="Gazdasági társaság neve">
+                </div>
+                <div class="col-md-8">
+                  <input class="form-control" name="co_location[]" placeholder="Székhelye">
+                </div>
+                <div class="col-md-4">
+                  <select class="form-control" name="co_type[]" title="Formája">
+                    <option value="choose" selected>Formája</option>
+                    <option>Bt.</option>
+                    <option>erdőbirtoklási társulás</option>
+                    <option>Kft.</option>
+                    <option>nonprofit Kft.</option>
+                    <option>Nyrt.</option>
+                    <option>szövetkezet</option>
+                    <option>ügyvédi iroda</option>
+                    <option>Zrt.</option>
+                    <option>egyéb</option>
+                  </select>
+                  <input type="text" class="form-control hidden other-input " name="co_type_other[]">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <h2>Érdekeltség formája keletkezéskor</h2>
+              <div class="row">
+                <div class="col-md-8">
+                  <select class="form-control" name="int_beginning[]" title="Érdekeltség formája keletkezéskor">
+                    <option value="choose" selected>Érdekeltség formája keletkezéskor</option>
+                    <option>alapító</option>
+                    <option>beltag</option>
+                    <option>kültag</option>
+                    <option>részvényes</option>
+                    <option>tulajdonos</option>
+                    <option>egyéb</option>
+                  </select>
+                  <input type="text" class="form-control hidden other-input " name="int_beginning_other[]">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-10">
+              <h2>Érdekeltség formája jelenleg</h2>
+              <div class="row">
+                <div class="col-md-8">
+                  <select class="form-control" name="int_now[]" title="Érdekeltség formája jelenleg">
+                    <option value="choose" selected>Érdekeltség formája jelenleg</option>
+                    <option>alapító</option>
+                    <option>beltag</option>
+                    <option>kültag</option>
+                    <option>részvényes</option>
+                    <option>tulajdonos</option>
+                    <option>egyéb</option>
+                  </select>
+                  <input type="text" class="form-control hidden other-input " name="int_now_other[]">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-10">
+              <h2>Érdekeltség aránya keletkezéskor</h2>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <input class="form-control" name="ownership_ratio_beg1[]" type="text">
+                    </div>
+                    <div class="col-md-2"><span class="out-of center-block">/</span></div>
+                    <div class="col-md-2">
+                      <input class="form-control" type="text" name="ownership_ratio_beg2[]">
+                    </div>
+                    <div class="col-md-2"><span class="or center-block">vagy</span></div>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="ownership_ratio_beg_percent[]"
+                               placeholder="százalék..." aria-describedby="percent-addon">
+                        <span class="input-group-addon" id="percent-addon">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-10">
+              <h2>Érdekeltség aránya jelenleg</h2>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <input class="form-control" name="ownership_ratio_now1[]" type="text">
+                    </div>
+                    <div class="col-md-2"><span class="out-of center-block">/</span></div>
+                    <div class="col-md-2">
+                      <input class="form-control" type="text" name="ownership_ratio_now2[]">
+                    </div>
+                    <div class="col-md-2"><span class="or center-block">vagy</span></div>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="ownership_ratio_now_percent[]"
+                               placeholder="százalék..." aria-describedby="percent-addon">
+                        <span class="input-group-addon" id="percent-addon">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-10">
+              <h2>Nyereségből részesedés</h2>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="profitshare[]" placeholder="%..."
+                           aria-describedby="percent-addon">
+                    <span class="input-group-addon" id="percent-addon">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <h2>Tisztség</h2>
+              <div class="row">
+                <div class="col-md-8">
+                  <select class="form-control" name="position[]" title="Tisztség">
+                    <option value="choose" selected>Tisztség</option>
+                    <option>beltag</option>
+                    <option>elnök</option>
+                    <option>igazgatóság elnöke</option>
+                    <option>képviselő</option>
+                    <option>kültag</option>
+                    <option>szüneteltetve</option>
+                    <option>tag</option>
+                    <option>ügyvezető</option>
+                    <option>egyéb</option>
+
+                  </select>
+                  <input type="text" class="form-control hidden other-input " name="position_other[]">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <button class="btn btn-default repeater hidden"><i class="fa fa-plus"></i>1 érdekeltség</button>
+      </div>
+    </div>
+  </li>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block questions %}
+  <li class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Személyes információk</h1>
+        <div class="really-blue-line"></div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="spouse">Házas-/élettárs:</label>
+          <input class="form-control" type="text" id="spouse" name="spouse" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="child">Gyermek:</label>
+          <input class="form-control" type="text" id="child" name="children[]" class="form-control">
+        </div>
+
+        <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 gyermek</button>
+      </div>
+    </div>
+  </li>
+{% endblock %}

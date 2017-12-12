@@ -1,0 +1,132 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block questions %}
+<!-- slide 9 -->
+<li class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Nyilatkozik-e bármilyen juttatásról, ajándékról, támogatásról?</h1>
+
+      <div class="really-blue-line"></div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="radio">
+            <label for="radio7-1">
+              <input type="radio" id="radio7-1" name="__radio7" value="yes" class="box-toggler"
+                     data-toggle-target=".contents-7"> Igen
+            </label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="radio">
+            <label for="radio7-2">
+              <input type="radio" id="radio7-2" name="__radio7" value="no" class="box-toggler"
+                     data-toggle-target=".contents-7"> Nem
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="hidden contents-7 col-md-12" id="">
+        <div class="row">
+          <div class="col-md-10">
+            <h2>Juttatás</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <input type="text" name="benefit_date[]" class="form-control" placeholder="Juttatás ideje">
+              </div>
+              <div class="col-md-8">
+
+                <input type="text" class="form-control" name="benefit_name[]" title="Juttatás megnevezése">
+
+              </div>
+              <div class="col-md-4">
+                <input type="text" name="benefit_value[]" class="form-control" placeholder="értéke">
+              </div>
+              <div class="col-md-4">
+                <select class="form-control" name="benefit_curr[]" title="pénznem">
+                  <option selected>HUF</option>
+                  <option>törvényben alapján</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+
+              </div>
+            </div>
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 juttatás</button>
+          </div>
+          <div class="col-md-10">
+
+            <h2 class="clearfix">Ajándék</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <input type="text" name="present_date[]" class="form-control" placeholder="Ajándék ideje">
+              </div>
+              <div class="col-md-8">
+                <!-- shouldn't it be input field -->
+                <input class="form-control" name="present_name[]" title="Ajándék megnevezése"
+                       placeholder="Ajándék megnevezése"/>
+              </div>
+              <div class="col-md-4">
+                <input type="text" name="present_value[]" class="form-control" placeholder="Ajándék értéke">
+              </div>
+              <div class="col-md-4">
+                <select class="form-control" name="present_currency[]" title="pénznem">
+                  <option selected>HUF</option>
+                  <option>törvényben alapján</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 ajándék</button>
+          </div>
+
+
+          <div class="col-md-10">
+            <h2 class="clearfix">Támogatások</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" name="subs_reci[]" class="form-control" placeholder="Támogatás jogosultja">
+              </div>
+              <div class="col-md-6">
+                <input type="text" name="subs_legal[]" class="form-control" placeholder="Megszerzés jogcíme">
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" name="subs_date[]" class="form-control" placeholder="Időpontja">
+              </div>
+              <div class="col-md-4">
+                <input type="text" name="subs_provider[]" class="form-control" placeholder="Támogatást nyújtó">
+              </div>
+              <div class="col-md-4">
+                <input type="text" name="subs_purpose[]" class="form-control" placeholder="Célja">
+              </div>
+
+
+              <div class="col-md-4">
+                <input type="text" name="subs_value[]" class="form-control" placeholder="Értéke">
+              </div>
+              <div class="col-md-4">
+                <select class="form-control" name="subs_curr[]" title="pénznem">
+                  <option selected>HUF</option>
+                  <option>EUR</option>
+                  <option>CHF</option>
+                  <option>GBP</option>
+                  <option>USD</option>
+                  <option>darab</option>
+                  <option>egyéb</option>
+                </select>
+                <input type="text" class="form-control hidden other-input " name="subs_curr_other[]">
+              </div>
+
+            </div>
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 támogatás</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+{% endblock %}

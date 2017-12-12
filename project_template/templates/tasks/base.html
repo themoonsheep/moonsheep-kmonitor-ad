@@ -1,0 +1,46 @@
+{% load static %}
+<form name="elForma" id="elForm" action="{{ form.get_absolute_url }}" method="post" role="form" class="center-block">
+  <p class="step-x-y"></p>
+
+  <p class="step-title"></p>
+  {% csrf_token %}
+  <div id="slidedform" class="form">
+    <ul id="slide-list">
+      <li class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div style="float:left;width:30%;">
+              <img class="img-responsive" id="the-logo"
+                   src="{% static 'img/k-horizontalis_transp.gif' %}">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <img class="img-responsive mp-profile-pic" src="{{ mp.image_url }}" alt="{{ mp.name }}TODO">
+          </div>
+          <div class="col-md-9">
+            <h1>{{ mp.name }}TODO</h1>
+          </div>
+        </div>
+      </li>
+      {% block questions %}
+      {% endblock %}
+    </ul>
+
+    {% if request.user.is_staff %}
+      {# TODO #}
+      <p> Instantly verify this document: <input type="checkbox" name="staff_force_verification"><br/>
+        Dear {{ request.user }}, leave it unchecked if you want this entry to be verified by others. Check if
+        you're really sure it's correct and you don't want to wait for others.</p>
+    {% endif %}
+    <br/>
+    <br/>
+    <br/>
+
+    <button class="btn btn-lg btn-kmonitor btn-lg" type="submit"><i class="fa fa-heartbeat"></i> Felszabadítom!
+    </button>
+
+    <br/>
+    <br/>
+    <br/>
+  </div>
+</form>

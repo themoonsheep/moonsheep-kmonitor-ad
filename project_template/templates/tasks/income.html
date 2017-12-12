@@ -1,0 +1,73 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+
+{% block questions %}
+  <!-- slide 7 -->
+  <li class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Nyilatkozik-e egyéb jövedelmeiről (Jövedelemnyilatkozat)?</h1>
+        <div class="really-blue-line"></div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio5-1">
+                <input type="radio" id="radio5-1" name="__radio5" value="yes" class="box-toggler"
+                       data-toggle-target=".contents-5"> Igen
+              </label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="radio">
+              <label for="radio5-2">
+                <input type="radio" id="radio5-2" name="__radio5" value="no" class="box-toggler"
+                       data-toggle-target=".contents-5"> Nem
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden contents-5 col-md-12">
+          <h2>Foglalkozás</h2>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" name="profession[]" class="form-control" placeholder="Foglalkozás">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="employer[]" class="form-control" placeholder="Munkahelye/kifizető">
+                </div>
+                <div class="col-md-3">
+                  <select class="form-control" name="active[]" title="Szünetelteti?">
+                    <option value="choose" selected>Szünetelteti?</option>
+                    <option value="1">Igen</option>
+                    <option value="0">Nem</option>
+                  </select>
+                </div>
+                <div class="col-md-3"><input type="text" name="income[]" class="form-control" placeholder="Jövedelme">
+                </div>
+                <div class="col-md-3">
+                  <select class="form-control" name="income_curr[]" title="pénznem">
+                    <option selected>HUF</option>
+                    <option>EUR</option>
+                    <option>CHF</option>
+                    <option>GBP</option>
+                    <option>USD</option>
+                    <option>darab</option>
+                    <option>egyéb</option>
+                  </select>
+                  <input type="text" class="form-control hidden other-input " name="income_curr_other[]">
+                </div>
+                <div class="col-md-3"><input type="text" name="regularity[]" class="form-control"
+                                             placeholder="gyakoriság"></div>
+
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
+        </div>
+      </div>
+    </div>
+  </li>
+{% endblock %}
