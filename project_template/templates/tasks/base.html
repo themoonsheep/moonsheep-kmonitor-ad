@@ -26,6 +26,8 @@
       {% endblock %}
     </ul>
 
+    {#  TODO feedback <textarea class="feedback-flag form-control" rows="4" name="something_wrong[]" placeholder="Láttál valami gyanúsat? Volt valami, ami nem tiszta?"></textarea> #}
+
     {% if request.user.is_staff %}
       {# TODO #}
       <p> Instantly verify this document: <input type="checkbox" name="staff_force_verification"><br/>
