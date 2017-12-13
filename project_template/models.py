@@ -191,7 +191,7 @@ class ArtWork(models.Model):
     acquisition_month = models.IntegerField()
 
 
-class Security:
+class Security(models.Model):
     """
     Értékpapír vagy egyéb befektetés
     """
@@ -205,7 +205,7 @@ class Security:
     currency = MyCharField(_('pénznem'))
 
 
-class Savings:
+class Savings(models.Model):
     """
     Takarék
     """
@@ -216,7 +216,7 @@ class Savings:
     currency = MyCharField(_('pénznem'))
 
 
-class Cash:
+class Cash(models.Model):
     """
     Készpénz
     """
@@ -226,7 +226,7 @@ class Cash:
     currency = MyCharField(_('pénznem'))
 
 
-class Obligation:
+class Obligation(models.Model):
     """
     Pénzintézeti számlakövetelés vagy más pénzkövetelés
     """
@@ -237,7 +237,7 @@ class Obligation:
     currency = MyCharField(_('pénznem'))
 
 
-class Debt:
+class Debt(models.Model):
     declaration = models.ForeignKey("Declaration", on_delete=models.CASCADE, related_name='debts')
 
     type = MyCharField(_('Tartozás típusa'))
@@ -246,7 +246,7 @@ class Debt:
     currency = MyCharField(_('pénznem'))
 
 
-class Income:
+class Income(models.Model):
     declaration = models.ForeignKey("Declaration", on_delete=models.CASCADE, related_name='incomes')
 
     profession = MyCharField(_('Foglalkozás'))
@@ -258,7 +258,7 @@ class Income:
     regularity = MyCharField(_('gyakoriság'))
 
 
-class EconomicInterest:
+class EconomicInterest(models.Model):
     declaration = models.ForeignKey("Declaration", on_delete=models.CASCADE, related_name='economic_interests')
 
     name = MyCharField(_('Gazdasági társaság neve'))
@@ -281,7 +281,7 @@ class EconomicInterest:
     position = MyCharField(_('Tisztség'))
 
 
-class Benefit:
+class Benefit(models.Model):
     """
     Juttatás
     """
@@ -293,7 +293,7 @@ class Benefit:
     currency = MyCharField(_('pénznem'))
 
 
-class Present:
+class Present(models.Model):
     """
     Ajándék
     """
@@ -305,7 +305,7 @@ class Present:
     currency = MyCharField(_('pénznem'))
 
 
-class Subsidy:
+class Subsidy(models.Model):
     """
     Támogatások
     """
