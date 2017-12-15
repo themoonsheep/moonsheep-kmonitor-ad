@@ -40,6 +40,8 @@ class Person(models.Model):
     child_in_declaration = models.ForeignKey("Declaration", related_name='children', null=True, blank=True,
                                              on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.name
 
 class Politician(Person):
     """
@@ -71,9 +73,6 @@ class Politician(Person):
                                 date=date_filled.strftime('%y%m%d'),
                                 year=year), date_filled)
 
-    def __unicode__(self):
-        return self.name
-
     class Meta:
         verbose_name = _('Politician')
         verbose_name_plural = _('Politicians')
@@ -90,7 +89,7 @@ class Party(models.Model):
 
     objects = MyManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:

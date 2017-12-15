@@ -1,0 +1,45 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n staticfiles  %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+{% block bodyclass %} change-form{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+     Back to  <a href="../">{{ document_set.name}}</a> &rsaquo;
+</div>
+{% endblock %}
+
+{% block content_title %}
+<h1>Add documents to <em>{{ document_set.name }}</em></h1>
+{% endblock %}
+{% block content %}
+<div id="content-main">
+  <form enctype="multipart/form-data" action="" method="post" id="documentset_form">
+    {% csrf_token %}
+    <div>
+      <fieldset class="module aligned">
+        <div class="form-row field-name">
+          <div>
+            <label for="chamber">Chamber:</label>
+            <select name="chamber" id="chamber">
+              {% for chamber in chambers %}
+              <option value="{{ chamber.id }}">{{ chamber.name }}</option>
+              {% endfor %}
+            </select>
+            <p class="help">Select a chamber to limit which politicians asset declarations will be imported.</p>
+          </div>
+        </div>
+        <div class="form-row field-name">
+          <div>
+            <label for="year">Year:</label>
+            <input id="year" name="year" value="2016"/>
+            <p class="help">From which year declarations should be imported? Specifying 2016 will import documents filled at 31.12.2016. You can run import even before documents are published.</p>
+          </div>
+        </div>
+      </fieldset>
+      <div class="submit-row">
+        <input type="submit" value="Import declarations" class="default" name="_import">
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
-from crowdataapp.scrapers import vpapi
-from crowdataapp.models import Party, Politician, Document, DocumentSet
+from . import vpapi
+from ..models import Party, Politician, Declaration
 
 
 class obj(object):

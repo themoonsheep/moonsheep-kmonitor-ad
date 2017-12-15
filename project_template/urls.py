@@ -19,12 +19,21 @@ from django.views.generic import TemplateView
 from moonsheep.views import TaskView
 from .views import *
 from .tasks import * # Keep it to make Moonsheep aware of defined tasks
+from .admin import site
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', site.urls),
     path('moonsheep/', include('moonsheep.urls')),
 
     path('', HomeView.as_view(), name='home'),
     path('intro/', TaskIntroView.as_view(), name='task_intro'),
     path('task/', TaskView.as_view(), name='task'),
 ]
+
+# DEV-DEBUG
+from django.conf import settings
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

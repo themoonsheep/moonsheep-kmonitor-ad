@@ -9,7 +9,9 @@
                 <div class="logos col-md-6 col-md-offset-1">
                     <a href="http://k-monitor.hu/"><img src="{%  static 'img/k-horizontalis_transp.gif' %}" width="320" /></a>
                     <a href=http://www.direkt36.hu/><img class="direkt-36-logo-header" src="{%  static 'img/Direkt_logo_01.png' %}" width="215" /></a></div>
-                <div class="col-md-3"></div>
+                <div class="col-md-1 col-md-offset-3">
+                  <a style="color:#865501;" href="{% url 'admin:index' %}">&deg</a>
+                </div>
             </div>
         </div>
         {% if stats.liberated_declarations < stats.all_declarations_count %}
