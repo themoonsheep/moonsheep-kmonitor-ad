@@ -1,15 +1,15 @@
 {% extends 'admin/base_site.html' %}
 {% load i18n staticfiles  %}
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
-{% block bodyclass %} change-form{% endblock %}
+
 {% block breadcrumbs %}
 <div class="breadcrumbs">
-     Back to  <a href="../">{{ document_set.name}}</a> &rsaquo;
+     Back to  <a href="{% url 'admin:app_list' 'project_template' %}">project</a> &rsaquo;
 </div>
 {% endblock %}
 
 {% block content_title %}
-<h1>Add documents to <em>{{ document_set.name }}</em></h1>
+<h1>Import declarations from ParlData API</h1>
 {% endblock %}
 {% block content %}
 <div id="content-main">

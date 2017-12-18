@@ -8,8 +8,11 @@ from .models import *
 
 
 def create_mocked_task(self, base):
-    base['info'][
-        'url'] = 'http://www.parlament.hu/internet/cplsql/ogy_vagyonpub.vagyon_kiir_egys?P_FNEV=/2016/l001_j0161231k.pdf&p_cont=application/pdf'
+    base['info'].update({
+        'url': 'http://www.parlament.hu/internet/cplsql/ogy_vagyonpub.vagyon_kiir_egys?P_FNEV=/2016/l001_j0161231k.pdf&p_cont=application/pdf',
+        'politician_id': Politician.objects.order_by('?').first().id
+    })
+
     return base
 #
 # class BigTask(AbstractTask):
@@ -46,6 +49,9 @@ class S2Properties(AbstractTask):
     task_form_template = 'tasks/properties.html'
 
     create_mocked_task = create_mocked_task
+
+    def save_verified_data(self, verified_data):
+        pass  # TODO
 
 
 class S3Movables(AbstractTask):

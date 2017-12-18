@@ -25,7 +25,7 @@ def get_parties():
     return items
 
 
-def import_declarations(document_set, chamber_id, year):
+def import_declarations(chamber_id, year):
     # chamber_id = '550303bc273a39033bab34df'
     parties = {party.parldata_id: party for party in Party.objects.all()}
 
@@ -80,8 +80,8 @@ def import_declarations(document_set, chamber_id, year):
             # create doc
             document_url, date_filled = politician.create_asset_declaration_url(year)
 
-            doc, created = Document.objects.get_or_create(url=document_url, document_set=document_set, defaults={
-                'name': politician.name + ' ' + date_filled.isoformat(),
+            doc, created = Declaration.objects.get_or_create(url=document_url, defaults={
+                'for_year': year,
                 'politician': politician
             })
             if created:

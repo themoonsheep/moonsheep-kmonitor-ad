@@ -24,10 +24,11 @@ DEBUG = TEMPLATE_DEBUG = True
 
 INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
+AUTH_PASSWORD_VALIDATORS = []
 
 # Add debug toolbar
 if DEBUG:
-    INSTALLED_APPS += ['debug_toolbar']
+    INSTALLED_APPS += ['debug_toolbar', 'django_extensions']
     MIDDLEWARE.insert(1, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 SECRET_KEY = 'WHATEVER'
@@ -41,3 +42,5 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from moonsheep.views import TaskView
+from moonsheep.views import TaskView as MTaskView
+from .models import Politician
 
 
 class HomeView(TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             # TODO
             'reporting_year': 'reporting_year',
@@ -27,7 +28,7 @@ class TaskIntroView(TemplateView):
     template_name = 'task_intro.html'
 
     def get_context_data(self, **kwargs):
-        context = super(TaskIntroView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             # TODO
             'mp': {
@@ -40,6 +41,15 @@ class TaskIntroView(TemplateView):
             'task': {
                 'id': 0  # TODO preshow task
             }
+        })
+        return context
+
+
+class TaskView(MTaskView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'mp': Politician.objects.get_or_none(id=self.task.data['politician_id']),
         })
         return context
 

@@ -43,7 +43,8 @@ class Person(models.Model):
     def __str__(self):
         return self.name
 
-class Politician(Person):
+
+class Politician(Person):  # TODO it has linked subclass - do we want it? ie. each Politician instance has Person instance
     """
     Used in most of the urls of parliamentary website
     """
@@ -98,6 +99,8 @@ class Party(models.Model):
 
 
 class Declaration(models.Model):
+    url = models.URLField(max_length=500)
+
     politician = models.ForeignKey("Politician", related_name='declarations',
                                    null=True, blank=True, on_delete=models.PROTECT)
     party = models.ForeignKey("Party",
@@ -118,6 +121,9 @@ class Declaration(models.Model):
     Financial - other [egyéb közlendője]
     """
     financial_other = models.TextField(_('Egyéb közlendők'))  # form input name: comment
+
+    def __str__(self):
+        return '{} - {}'.format(self.politician.name, self.for_year)
 
 
 class Property(models.Model):

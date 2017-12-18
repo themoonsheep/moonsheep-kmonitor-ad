@@ -21,19 +21,20 @@ class MyAdminSite(admin.AdminSite):
         from .importers import parldata
         # TODO catch requests.exceptions.ConnectionError
 
-        if request.method == 'POST' and request.REQUEST['chamber'] and int(request.REQUEST['year']):
-            year = int(request.REQUEST['year'])
-            chamber_id = request.REQUEST['chamber']
+        if request.method == 'POST' and request.POST['chamber'] and int(request.POST['year']):
+            year = int(request.POST['year'])
+            chamber_id = request.POST['chamber']
 
-            report = parldata.import_declarations(document_set, chamber_id, year)
+            report = parldata.import_declarations(chamber_id, year)
 
-            return render_to_response('admin/kmonitor_import_asset_declarations_report.html',
-                                      {
-                                          'document_set': document_set,
-                                          'current_app': self.admin_site.name,
-                                          'report': report
-                                      },
-                                      RequestContext(request))
+            params = dict(
+                # Include common variables for rendering the admin template.
+                self.each_context(request),
+                # Anything else you want in the context...
+                report=report,
+                for_year=year
+            )
+            return TemplateResponse(request, "admin/project_template/import_declarations_report.html", params)
 
         else:
             params = dict(
@@ -50,21 +51,25 @@ site.register(User)
 site.register(Group)
 
 
-@admin.register(Politician)
+@admin.register(Politician, site=site)
 class PoliticianAdmin(admin.ModelAdmin):
     pass
 
 
 site.register(Person)
 site.register(Party)
-site.register(Declaration)
+
+
+@admin.register(Declaration, site=site)
+class DeclarationAdmin(admin.ModelAdmin):
+    list_select_related = ('politician',)
 
 
 class PropertyAcquisitionTitleInline(admin.TabularInline):
     model = PropertyAcquisitionTitle
 
 
-@admin.register(Property)
+@admin.register(Property, site=site)
 class PropertyAdmin(admin.ModelAdmin):
     inlines = [
         PropertyAcquisitionTitleInline,
