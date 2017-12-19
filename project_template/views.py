@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.urls import reverse
 from moonsheep.views import TaskView as MTaskView
 from .models import Politician
 
@@ -53,3 +54,5 @@ class TaskView(MTaskView):
         })
         return context
 
+    def get_success_url(self):
+        return reverse('task')

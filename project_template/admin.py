@@ -74,6 +74,7 @@ class PropertyAdmin(admin.ModelAdmin):
     inlines = [
         PropertyAcquisitionTitleInline,
     ]
+    list_select_related = ('declaration__politician',)
 
 
 site.register(Vehicle)

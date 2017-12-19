@@ -238,7 +238,7 @@
                 <label>Szerzés jogcíme</label>
                 <select id="select1" class=" form-control" name="acquisition1[0][]" data-live-search="true"
                         title="Enter value" placeholder="">
-                  <option value="choose" selected></option>
+                  <option value="" selected></option>
                   <option>adás-vétel</option>
                   <option>ajándékozás</option>
                   <option>életjáradéki</option>
@@ -260,22 +260,7 @@
               </div>
               <div class="col-md-3">
                 <label>Hónap</label>
-                <select class="form-control " name="acquisition-month[0][]" placeholder="month" title="month"
-                        data-live-search="true">
-                  <option value="choose" selected>hónap</option>
-                  <option value="1">január</option>
-                  <option value="2">február</option>
-                  <option value="3">március</option>
-                  <option value="4">április</option>
-                  <option value="5">május</option>
-                  <option value="6">június</option>
-                  <option value="7">július</option>
-                  <option value="8">augusztus</option>
-                  <option value="9">szeptember</option>
-                  <option value="10">október</option>
-                  <option value="11">november</option>
-                  <option value="12">december</option>
-                </select>
+                {% include 'tasks/snippets/month_select.html' with name='acquisition-month[0][]' placeholder='Hónap' class='form-control'%}
               </div>
               <div class="col-md-3">
                 <label>Nap</label>

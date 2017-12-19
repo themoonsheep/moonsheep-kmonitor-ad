@@ -19,6 +19,17 @@ class MyManager(models.Manager):
             raise Http404('No %s matches the given query.' % self.model._meta.object_name)
 
 
+# TODO Move these to Moonsheep
+class MyIntegerField(models.IntegerField):
+    def __init__(self, *args, **kwargs):
+        if 'blank' not in kwargs:
+            kwargs['blank'] = True
+        if 'null' not in kwargs:
+            kwargs['null'] = True
+
+        super().__init__(*args, **kwargs)
+
+
 class MyCharField(models.CharField):
     """
     By default can be blank and null. Default length: 128
@@ -35,6 +46,34 @@ class MyCharField(models.CharField):
         super().__init__(*args, **kwargs)
 
 
+class PercentField(models.DecimalField):
+    def __init__(self, *args, **kwargs):
+        if 'blank' not in kwargs:
+            kwargs['blank'] = True
+        if 'null' not in kwargs:
+            kwargs['null'] = True
+        if 'decimal_places' not in kwargs:
+            kwargs['decimal_places'] = 2
+        if 'max_digits' not in kwargs:
+            kwargs['max_digits'] = 3
+
+        super().__init__(*args, **kwargs)
+
+
+class AmountField(models.DecimalField):
+    def __init__(self, *args, **kwargs):
+        if 'blank' not in kwargs:
+            kwargs['blank'] = True
+        if 'null' not in kwargs:
+            kwargs['null'] = True
+        if 'decimal_places' not in kwargs:
+            kwargs['decimal_places'] = 2
+        if 'max_digits' not in kwargs:
+            kwargs['max_digits'] = 12
+
+        super().__init__(*args, **kwargs)
+
+
 class Person(models.Model):
     name = models.CharField(_('Full name'), max_length=128, )
     child_in_declaration = models.ForeignKey("Declaration", related_name='children', null=True, blank=True,
@@ -44,7 +83,8 @@ class Person(models.Model):
         return self.name
 
 
-class Politician(Person):  # TODO it has linked subclass - do we want it? ie. each Politician instance has Person instance
+class Politician(
+    Person):  # TODO it has linked subclass - do we want it? ie. each Politician instance has Person instance
     """
     Used in most of the urls of parliamentary website
     """
@@ -102,11 +142,8 @@ class Declaration(models.Model):
     url = models.URLField(max_length=500)
 
     politician = models.ForeignKey("Politician", related_name='declarations',
-                                   null=True, blank=True, on_delete=models.PROTECT)
-    party = models.ForeignKey("Party",
-                              null=True, blank=True,
-                              verbose_name='MPs party at the time of declaration import',
-                              on_delete=models.PROTECT)
+                                   on_delete=models.PROTECT)
+
     for_year = models.IntegerField()
 
     # Personal Data
@@ -156,20 +193,25 @@ class Property(models.Model):
     legal_status_berlo = models.BooleanField(_('bérlő'))
     legal_status_other = models.CharField(max_length=128)
 
-    ownership_ratio_numerator = models.IntegerField()
-    ownership_ratio_denominator = models.IntegerField()
-    ownership_ratio_percent = models.DecimalField(decimal_places=2, max_digits=3)
+    ownership_ratio_numerator = MyIntegerField()
+    ownership_ratio_denominator = MyIntegerField()
+    ownership_ratio_percent = PercentField()
 
     category = MyCharField()
 
     # acquisition_titles are in a separate model: PropertyAcquisitionTitle
+
+    def __str__(self):
+        return '[ {} ] {}'.format(self.declaration, self.location)
 
 
 class PropertyAcquisitionTitle(models.Model):
     property = models.ForeignKey("Property", on_delete=models.CASCADE, related_name='acquisition_titles')
 
     title = MyCharField()
-    date = models.DateField()
+    year = MyIntegerField()
+    month = MyIntegerField()
+    day = MyIntegerField()
 
 
 class Vehicle(models.Model):
@@ -180,8 +222,8 @@ class Vehicle(models.Model):
     subtype = MyCharField(_('Típusa'))
 
     acquisition_type = MyCharField(_('Szerzés jogcíme'))  # acq acq_other
-    acquisition_year = models.IntegerField()
-    acquisition_month = models.IntegerField()
+    acquisition_year = MyIntegerField()
+    acquisition_month = MyIntegerField()
 
 
 class ArtWork(models.Model):
@@ -192,8 +234,8 @@ class ArtWork(models.Model):
     pieces = MyCharField(_('db'))
 
     acquisition_type = MyCharField(_('Szerzés jogcíme'))  # acq acq_other
-    acquisition_year = models.IntegerField()
-    acquisition_month = models.IntegerField()
+    acquisition_year = MyIntegerField()
+    acquisition_month = MyIntegerField()
 
 
 class Security(models.Model):
@@ -206,7 +248,7 @@ class Security(models.Model):
     Értékpapírban elhelyezett megtakarítás, vagy egyéb befektetés
     """
     name = MyCharField(_('Értékpapír'))  # form: inv_name
-    value = models.DecimalField(_('Névérték'), decimal_places=2, max_digits=12)
+    value = AmountField(_('Névérték'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -217,7 +259,7 @@ class Savings(models.Model):
     declaration = models.ForeignKey("Declaration", on_delete=models.CASCADE, related_name='savings')
 
     name = MyCharField(_('Takarékbetétben elhelyezett megtakarítás'))  # form: sec_name
-    value = models.DecimalField(_('összeg'), decimal_places=2, max_digits=12)
+    value = AmountField(_('összeg'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -227,7 +269,7 @@ class Cash(models.Model):
     """
     declaration = models.ForeignKey("Declaration", on_delete=models.CASCADE, related_name='cash')
 
-    value = models.DecimalField(_('összeg'), decimal_places=2, max_digits=12)
+    value = AmountField(_('összeg'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -238,7 +280,7 @@ class Obligation(models.Model):
     declaration = models.ForeignKey("Declaration", on_delete=models.CASCADE, related_name='onligations')
 
     type = MyCharField()
-    value = models.DecimalField(_('összeg'), decimal_places=2, max_digits=12)
+    value = AmountField(_('összeg'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -247,7 +289,7 @@ class Debt(models.Model):
 
     type = MyCharField(_('Tartozás típusa'))
     description = models.TextField(_('Megnevezés'))
-    value = models.DecimalField(_('összeg'), decimal_places=2, max_digits=12)
+    value = AmountField(_('összeg'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -273,15 +315,15 @@ class EconomicInterest(models.Model):
     role_beg = MyCharField(_('Érdekeltség formája keletkezéskor'))  # int_beginning, in the beginning
     role_now = MyCharField(_('Érdekeltség formája jelenleg'))  # int_now
 
-    ownership_ratio_beg_numerator = models.IntegerField()
-    ownership_ratio_beg_denominator = models.IntegerField()
-    ownership_ratio_beg_percent = models.DecimalField(decimal_places=2, max_digits=3)
+    ownership_ratio_beg_numerator = MyIntegerField()
+    ownership_ratio_beg_denominator = MyIntegerField()
+    ownership_ratio_beg_percent = PercentField()
 
-    ownership_ratio_now_numerator = models.IntegerField()
-    ownership_ratio_now_denominator = models.IntegerField()
-    ownership_ratio_now_percent = models.DecimalField(decimal_places=2, max_digits=3)
+    ownership_ratio_now_numerator = MyIntegerField()
+    ownership_ratio_now_denominator = MyIntegerField()
+    ownership_ratio_now_percent = PercentField()
 
-    profit_share = models.DecimalField(_('Nyereségből részesedés'), decimal_places=2, max_digits=3)
+    profit_share = PercentField(_('Nyereségből részesedés'))
 
     position = MyCharField(_('Tisztség'))
 
@@ -294,7 +336,7 @@ class Benefit(models.Model):
 
     date = MyCharField(_('ideje'))
     name = MyCharField(_('megnevezése'))
-    value = models.DecimalField(_('értéke'), decimal_places=2, max_digits=12)
+    value = AmountField(_('értéke'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -306,7 +348,7 @@ class Present(models.Model):
 
     date = MyCharField(_('ideje'))
     name = MyCharField(_('megnevezése'))
-    value = models.DecimalField(_('értéke'), decimal_places=2, max_digits=12)
+    value = AmountField(_('értéke'))
     currency = MyCharField(_('pénznem'))
 
 
@@ -321,5 +363,5 @@ class Subsidy(models.Model):
     date = MyCharField(_('Időpontja'))
     provider = MyCharField(_('Támogatást nyújtó'))
     purpose = MyCharField(_('Célja'))
-    value = models.DecimalField(_('Értéke'), decimal_places=2, max_digits=12)
+    value = AmountField(_('Értéke'))
     currency = MyCharField(_('pénznem'))

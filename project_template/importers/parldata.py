@@ -69,8 +69,7 @@ def import_declarations(chamber_id, year):
                 politician, created = Politician.objects.get_or_create(parldata_id=mp.id, defaults={
                     'name': mp.name,
                     'parliamentary_id': mp.identifiers[0].identifier,
-                    'image_url': mp.image,
-                    'party': party_obj
+                    'image_url': mp.image
                 })
                 politicians_imported += 1
 
@@ -82,7 +81,8 @@ def import_declarations(chamber_id, year):
 
             doc, created = Declaration.objects.get_or_create(url=document_url, defaults={
                 'for_year': year,
-                'politician': politician
+                'politician': politician,
+                'party': party_obj
             })
             if created:
                 docs_imported += 1

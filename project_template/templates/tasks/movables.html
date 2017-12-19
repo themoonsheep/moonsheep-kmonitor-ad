@@ -37,7 +37,7 @@
               <div class="col-md-4">
                 <label>Gépjármű jellege</label>
                 <select class="form-control" name="vehicle_type[]" title="type">
-                  <option value="choose" selected>Gépjármű jellege</option>
+                  <option value="" selected>Gépjármű jellege</option>
                   <option>személygépkocsi</option>
                   <option>tehergépjármű/autóbusz</option>
                   <option>motorkerékpár</option>
@@ -49,15 +49,7 @@
               </div>
               <div class="col-md-4">
                 <label>Szerzés jogcíme</label>
-                <select class="form-control" name="acq[]" title="Szerzés jogcíme">
-                  <option value="choose" selected>Szerzés jogcíme</option>
-                  <option>adás-vétel</option>
-                  <option>ajándékozás</option>
-                  <option>bérlés</option>
-                  <option>lízing</option>
-                  <option>öröklés</option>
-                  <option value="egyeb">egyéb</option>
-                </select>
+                {% include 'tasks/snippets/szerzes_jogcime.html' with name='acq[]]' %}
                 <input type="text" name="acq_other[]" class="form-control hidden other-input">
               </div>
               <div class="col-md-3">
@@ -66,23 +58,7 @@
                        min="1800" max="2017"></div>
               <div class="col-md-3">
                 <label>Hónap</label>
-                <select name="classic-vehicle-month[]" class="form-control selectpicker" placeholder="month"
-                        title="month"
-                        data-live-search="true">
-                  <option value="choose" selected>hónap</option>
-                  <option value="1">január</option>
-                  <option value="2">február</option>
-                  <option value="3">március</option>
-                  <option value="4">április</option>
-                  <option value="5">május</option>
-                  <option value="6">június</option>
-                  <option value="7">július</option>
-                  <option value="8">augusztus</option>
-                  <option value="9">szeptember</option>
-                  <option value="10">október</option>
-                  <option value="11">november</option>
-                  <option value="12">december</option>
-                </select>
+                {% include 'tasks/snippets/month_select.html' with class="form-control selectpicker" name='classic-vehicle-month[]' placeholder='Hónap' %}
               </div>
             </div>
             <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 gépjármű</button>
@@ -98,15 +74,7 @@
                 <input class="form-control" name="wa_subtype[]" type="text" placeholder="Típus">
               </div>
               <div class="col-md-4"><label>Szerzés jogcíme</label>
-                <select class="form-control" name="wa_acq[]" title="Szerzés jogcíme">
-                  <option value="choose" selected>Szerzés jogcíme</option>
-                  <option>adás-vétel</option>
-                  <option>ajándékozás</option>
-                  <option>bérlés</option>
-                  <option>lízing</option>
-                  <option>öröklés</option>
-                  <option>egyéb</option>
-                </select>
+                {% include 'tasks/snippets/szerzes_jogcime.html' with name='wa_acq[]]' %}
                 <input type="text" name="wa_acq_other[]" class="form-control hidden other-input">
               </div>
               <div class="col-md-3"><label>&Egrave;v</label><input name="aw-vehicle-year[]" class="form-control"
@@ -115,22 +83,7 @@
                                                                    max="2017"></div>
               <div class="col-md-3">
                 <label>Hónap</label>
-                <select class="form-control selectpicker" name="aw-vehicle-month[]" placeholder="month" title="month"
-                        data-live-search="true">
-                  <option value="choose" selected>hónap</option>
-                  <option value="1">január</option>
-                  <option value="2">február</option>
-                  <option value="3">március</option>
-                  <option value="4">április</option>
-                  <option value="5">május</option>
-                  <option value="6">június</option>
-                  <option value="7">július</option>
-                  <option value="8">augusztus</option>
-                  <option value="9">szeptember</option>
-                  <option value="10">október</option>
-                  <option value="11">november</option>
-                  <option value="12">december</option>
-                </select>
+                {% include 'tasks/snippets/month_select.html' with class="form-control selectpicker" name='aw-vehicle-month[]' placeholder='Hónap' %}
               </div>
             </div>
             <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 jármű</button>
@@ -141,7 +94,7 @@
 
                 <select class="form-control" name="artwork_type[]"
                         title="Védett műalkotás, védett gyűjtemény, egyéb értékes ingóság jellege">
-                  <option value="choose" selected></option>
+                  <option value="" selected></option>
                   <option>egyedi alkotás</option>
                   <option>gyűjtemény</option>
                   <option>egyéb értéktárgy</option>
@@ -156,15 +109,7 @@
 
               <div class="col-md-4">
                 <label>Szerzés jogcíme</label>
-                <select class="form-control" name="artwork_acq[]" title="Szerzés jogcíme">
-                  <option value="choose" selected>Szerzés jogcíme</option>
-                  <option>adás-vétel</option>
-                  <option>ajándékozás</option>
-                  <option>bérlés</option>
-                  <option>lízing</option>
-                  <option>öröklés</option>
-                  <option>egyéb</option>
-                </select>
+                {% include 'tasks/snippets/szerzes_jogcime.html' with name='artwork_acq[]]' %}
                 <input type="text" name="artwork_acq_other[]" class="form-control hidden other-input">
               </div>
               <div class="col-md-3"><label>&Egrave;v</label><input name="art-year[]" class="form-control" type="number"
@@ -172,22 +117,7 @@
               </div>
               <div class="col-md-3">
                 <label>Hónap</label>
-                <select class="form-control selectpicker" name="art-month[]" placeholder="month" title="month"
-                        data-live-search="true">
-                  <option value="choose" selected>hónap</option>
-                  <option value="1">január</option>
-                  <option value="2">február</option>
-                  <option value="3">március</option>
-                  <option value="4">április</option>
-                  <option value="5">május</option>
-                  <option value="6">június</option>
-                  <option value="7">július</option>
-                  <option value="8">augusztus</option>
-                  <option value="9">szeptember</option>
-                  <option value="10">október</option>
-                  <option value="11">november</option>
-                  <option value="12">december</option>
-                </select>
+                {% include 'tasks/snippets/month_select.html' with class="form-control selectpicker" name='art-month[]' placeholder='Hónap' %}
               </div>
             </div>
             <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 műtárgy</button>

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from .views import *
-from .tasks import * # Keep it to make Moonsheep aware of defined tasks
+from .tasks import *  # Keep it to make Moonsheep aware of defined tasks in DEVELOPMENT_MODE
 from .admin import site
 
 urlpatterns = [
