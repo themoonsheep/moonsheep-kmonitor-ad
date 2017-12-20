@@ -81,8 +81,7 @@ def import_declarations(chamber_id, year):
 
             doc, created = Declaration.objects.get_or_create(url=document_url, defaults={
                 'for_year': year,
-                'politician': politician,
-                'party': party_obj
+                'politician': politician
             })
             if created:
                 docs_imported += 1
