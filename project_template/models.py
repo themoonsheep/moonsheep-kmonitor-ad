@@ -74,17 +74,19 @@ class AmountField(models.DecimalField):
         super().__init__(*args, **kwargs)
 
 
-class Person(models.Model):
+class Relative(models.Model):
     name = models.CharField(_('Full name'), max_length=128, )
-    child_in_declaration = models.ForeignKey("Declaration", related_name='children', null=True, blank=True,
-                                             on_delete=models.SET_NULL)
+    spouse_of = models.OneToOneField("Declaration", related_name='spouse', null=True, blank=True,
+                                 on_delete=models.SET_NULL)
+    child_of = models.ForeignKey("Declaration", related_name='children', null=True, blank=True,
+                                 on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
 
 
-class Politician(
-    Person):  # TODO it has linked subclass - do we want it? ie. each Politician instance has Person instance
+class Politician(models.Model):
+    name = models.CharField(_('Full name'), max_length=128, )
     """
     Used in most of the urls of parliamentary website
     """
@@ -147,9 +149,7 @@ class Declaration(models.Model):
     for_year = models.IntegerField()
 
     # Personal Data
-    spouse = models.ForeignKey("Person", related_name='declaration_mentions', null=True, blank=True,
-                               on_delete=models.PROTECT)
-    # children foreign link exists in Person
+    # spouse and children foreign link exists in Relative class
 
     # Properties: reverse link
 

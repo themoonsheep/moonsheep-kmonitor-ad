@@ -56,7 +56,7 @@ class PoliticianAdmin(admin.ModelAdmin):
     pass
 
 
-site.register(Person)
+site.register(Relative)
 site.register(Party)
 
 
