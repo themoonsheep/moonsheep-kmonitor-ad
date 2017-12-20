@@ -35,13 +35,13 @@
               <h2>Gazdasági társaságban fennálló tisztség vagy érdekeltség</h2>
               <div class="row">
                 <div class="col-md-8">
-                  <input class="form-control" name="co_name[]" placeholder="Gazdasági társaság neve">
+                  <input class="form-control" name="name[]" placeholder="Gazdasági társaság neve">
                 </div>
                 <div class="col-md-8">
-                  <input class="form-control" name="co_location[]" placeholder="Székhelye">
+                  <input class="form-control" name="location[]" placeholder="Székhelye">
                 </div>
                 <div class="col-md-4">
-                  <select class="form-control" name="co_type[]" title="Formája">
+                  <select class="form-control" name="type[]" title="Formája">
                     <option value="" selected>Formája</option>
                     <option>Bt.</option>
                     <option>erdőbirtoklási társulás</option>
@@ -53,7 +53,7 @@
                     <option>Zrt.</option>
                     <option>egyéb</option>
                   </select>
-                  <input type="text" class="form-control hidden other-input " name="co_type_other[]">
+                  <input type="text" class="form-control hidden other-input " name="type_other[]">
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@
               <h2>Érdekeltség formája keletkezéskor</h2>
               <div class="row">
                 <div class="col-md-8">
-                  <select class="form-control" name="int_beginning[]" title="Érdekeltség formája keletkezéskor">
+                  <select class="form-control" name="role_beg[]" title="Érdekeltség formája keletkezéskor">
                     <option value="" selected>Érdekeltség formája keletkezéskor</option>
                     <option>alapító</option>
                     <option>beltag</option>
@@ -70,7 +70,7 @@
                     <option>tulajdonos</option>
                     <option>egyéb</option>
                   </select>
-                  <input type="text" class="form-control hidden other-input " name="int_beginning_other[]">
+                  <input type="text" class="form-control hidden other-input " name="role_beg_other[]">
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@
               <h2>Érdekeltség formája jelenleg</h2>
               <div class="row">
                 <div class="col-md-8">
-                  <select class="form-control" name="int_now[]" title="Érdekeltség formája jelenleg">
+                  <select class="form-control" name="role_now[]" title="Érdekeltség formája jelenleg">
                     <option value="" selected>Érdekeltség formája jelenleg</option>
                     <option>alapító</option>
                     <option>beltag</option>
@@ -88,7 +88,7 @@
                     <option>tulajdonos</option>
                     <option>egyéb</option>
                   </select>
-                  <input type="text" class="form-control hidden other-input " name="int_now_other[]">
+                  <input type="text" class="form-control hidden other-input " name="role_now_other[]">
                 </div>
               </div>
             </div>
@@ -99,11 +99,11 @@
                 <div class="col-md-12">
                   <div class="row">
                     <div class="col-md-2">
-                      <input class="form-control" name="ownership_ratio_beg1[]" type="text">
+                      <input class="form-control" name="ownership_ratio_beg_numerator[]" type="text">
                     </div>
                     <div class="col-md-2"><span class="out-of center-block">/</span></div>
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="ownership_ratio_beg2[]">
+                      <input class="form-control" type="text" name="ownership_ratio_beg_denominator[]">
                     </div>
                     <div class="col-md-2"><span class="or center-block">vagy</span></div>
                     <div class="col-md-4">
@@ -124,11 +124,11 @@
                 <div class="col-md-12">
                   <div class="row">
                     <div class="col-md-2">
-                      <input class="form-control" name="ownership_ratio_now1[]" type="text">
+                      <input class="form-control" name="ownership_ratio_now_numerator[]" type="text">
                     </div>
                     <div class="col-md-2"><span class="out-of center-block">/</span></div>
                     <div class="col-md-2">
-                      <input class="form-control" type="text" name="ownership_ratio_now2[]">
+                      <input class="form-control" type="text" name="ownership_ratio_now_denominator[]">
                     </div>
                     <div class="col-md-2"><span class="or center-block">vagy</span></div>
                     <div class="col-md-4">
@@ -149,7 +149,7 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="input-group">
-                    <input type="text" class="form-control" name="profitshare[]" placeholder="%..."
+                    <input type="text" class="form-control" name="profit_share[]" placeholder="%..."
                            aria-describedby="percent-addon">
                     <span class="input-group-addon" id="percent-addon">%</span>
                   </div>

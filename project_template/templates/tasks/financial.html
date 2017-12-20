@@ -46,7 +46,7 @@
                     <input type="text" name="inv_value[]" class="form-control" title="Névérték" placeholder="Névérték">
                   </div>
                   <div class="col-md-4">
-                    <select class="form-control" name="inv_curr[]" title="pénznem">
+                    <select class="form-control" name="inv_currency[]" title="pénznem">
                       <option selected>HUF</option>
                       <option>EUR</option>
                       <option>CHF</option>
@@ -55,7 +55,7 @@
                       <option>darab</option>
                       <option>egyéb</option>
                     </select>
-                    <input type="text" class="form-control hidden other-input " name="inv_curr_other[]">
+                    <input type="text" class="form-control hidden other-input " name="inv_currency_other[]">
                   </div>
                 </div>
                 <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
@@ -76,7 +76,7 @@
                 <input type="text" name="sec_value[]" class="form-control" placeholder="Névérték"/>
               </div>
               <div class="col-md-4">
-                <select class="form-control" name="sec_curr[]" title="pénznem">
+                <select class="form-control" name="sec_currency[]" title="pénznem">
                   <option selected>HUF</option>
                   <option>EUR</option>
                   <option>CHF</option>
@@ -85,7 +85,7 @@
                   <option>darab</option>
                   <option>egyéb</option>
                 </select>
-                <input type="text" class="form-control hidden other-input " name="sec_curr_other[]">
+                <input type="text" class="form-control hidden other-input " name="sec_currency_other[]">
               </div>
             </div>
             <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
@@ -94,10 +94,10 @@
             <h2>Készpénz</h2>
             <div class="row">
               <div class="col-md-4">
-                <input type="text" name="cash[]" class="form-control">
+                <input type="text" name="cash_value[]" class="form-control">
               </div>
               <div class="col-md-4">
-                <select class="form-control" name="cash_curr[]" title="pénznem">
+                <select class="form-control" name="cash_currency[]" title="pénznem">
                   <option selected>HUF</option>
                   <option>EUR</option>
                   <option>CHF</option>
@@ -106,7 +106,7 @@
                   <option>darab</option>
                   <option>egyéb</option>
                 </select>
-                <input type="text" class="form-control hidden other-input " name="cash_curr_other[]">
+                <input type="text" class="form-control hidden other-input " name="cash_currency_other[]">
               </div>
             </div>
             <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 hozzáadása</button>
@@ -129,7 +129,7 @@
               </div>
               <div class="col-md-4">
                 <label>Válassz</label>
-                <select class="form-control" name="obligation_curr[]" title="pénznem">
+                <select class="form-control" name="obligation_currency[]" title="pénznem">
                   <option selected>HUF</option>
                   <option>EUR</option>
                   <option>CHF</option>
@@ -138,7 +138,7 @@
                   <option>darab</option>
                   <option>egyéb</option>
                 </select>
-                <input type="text" class="form-control hidden other-input " name="obligation_curr_other[]">
+                <input type="text" class="form-control hidden other-input " name="obligation_currency_other[]">
               </div>
             </div>
             <button class="repeater btn btn-kmonitor" type="button"><i class="fa fa-plus"></i>1</button>
@@ -188,13 +188,13 @@
                   </select>
                 </div>
                 <div class="col-md-8">
-                  <input type="text" name="debt_desc[]" class="form-control" placeholder="Megnevezés">
+                  <input type="text" name="debt_description[]" class="form-control" placeholder="Megnevezés">
                 </div>
                 <div class="col-md-4">
                   <input type="text" name="debt_value[]" class="form-control" placeholder="összeg">
                 </div>
                 <div class="col-md-8">
-                  <select class="form-control" name="debt_curr[]" title="pénznem">
+                  <select class="form-control" name="debt_currency[]" title="pénznem">
                     <option selected>HUF</option>
                     <option>EUR</option>
                     <option>CHF</option>
@@ -203,7 +203,7 @@
                     <option>darab</option>
                     <option>egyéb</option>
                   </select>
-                  <input type="text" class="form-control hidden other-input " name="debt_curr_other[]">
+                  <input type="text" class="form-control hidden other-input " name="debt_currency_other[]">
                 </div>
               </div>
 
@@ -248,7 +248,7 @@
               <h2>Egyéb közlendők</h2>
               <div class="row">
                 <div class="col-md-12">
-                  <textarea name="comment" class="form-control" placeholder="Egyéb közlendők" rows="6"></textarea>
+                  <textarea name="financial_other" class="form-control" placeholder="Egyéb közlendők" rows="6"></textarea>
                 </div>
               </div>
             </div>

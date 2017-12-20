@@ -21,25 +21,7 @@ def create_mocked_task(self, base):
         })
 
     return base
-#
-# class BigTask(AbstractTask):
-#     task_form_template = 'tasks/base.html'
-#
-#     # def save_verified_data(self, verified_data):
-#     #     party, created = PoliticalParty.objects.get_or_create(
-#     #         name=verified_data['party_name'],
-#     #         legal_id=verified_data['party_legal_id']
-#     #     )
-#     #     Report.objects.get_or_create(
-#     #         report_date=datetime.datetime.strptime(verified_data['report_date'], "%Y-%m-%d"),
-#     #         party=party,
-#     #         document_page_start=verified_data['page']
-#     #     )
-#
-#     def after_save(self, verified_data):
-#         pass
-#
-#     create_mocked_task = create_mocked_task
+
 
 class S1PersonalData(AbstractTask):
     """
@@ -49,20 +31,22 @@ class S1PersonalData(AbstractTask):
 
     create_mocked_task = create_mocked_task
 
+    def save_verified_data(self, vd: dict):
+        d = Declaration.objects.get(url=self.url)
+
+        if vd['spouse'].strip():
+            Relative.objects.get_or_create(spouse_of=d, name=vd['spouse'].strip())
+
+        for child in vd['children']:
+            if child.strip():
+                Relative.objects.get_or_create(child_of=d, name=child.strip())
+
+
 class S2Properties(AbstractTask):
     """
     Ingatlanok
     """
     task_form_template = 'tasks/properties.html'
-
-    create_mocked_task = create_mocked_task
-
-
-class S3Movables(AbstractTask):
-    """
-    Nagy értékű ingóságok
-    """
-    task_form_template = 'tasks/movables.html'
 
     create_mocked_task = create_mocked_task
 
@@ -125,6 +109,68 @@ class S3Movables(AbstractTask):
     # TODO feedback 'something_wrong': ['']}
 
 
+class S3Movables(AbstractTask):
+    """
+    Nagy értékű ingóságok
+    """
+    task_form_template = 'tasks/movables.html'
+
+    create_mocked_task = create_mocked_task
+
+    def save_verified_data(self, vd: dict):
+        d = Declaration.objects.get(url=self.url)
+
+        # TODO assuming this declarations has not been verified
+        # otherwise we need to get existing objects, order them by how they were saved (additional field)
+        # and update their properties!
+
+        for i in range(len(vd['vehicle_type'])):
+            m = ModelMapper(Vehicle, vd, getter=lambda param_name: vd[param_name][i])
+            m.map(rename={
+                'type': 'vehicle_type',
+                'subtype': 'subtype',
+                'acquisition_type': 'acq',
+                'acquisition_year': 'classic-vehicle-year',
+                'acquisition_month': 'classic-vehicle-month'
+            })
+
+            # Overwrite _other fields if they are set
+            m.map_one('acq', 'acq_other')
+
+            m.create(declaration=d, type_general='motor').save()
+
+        for i in range(len(vd['vehicle_type'])):
+            m = ModelMapper(Vehicle, vd, getter=lambda param_name: vd[param_name][i])
+            m.map(rename={
+                'type': 'water_aero_type',
+                'subtype': 'wa_subtype',
+                'acquisition_type': 'wa_acq',
+                'acquisition_year': 'aw-vehicle-year',
+                'acquisition_month': 'aw-vehicle-month'
+            })
+
+            # Overwrite _other fields if they are set
+            m.map_one('wa_acq', 'wa_acq_other')
+
+            m.create(declaration=d, type_general='water_or_air').save()
+
+        for i in range(len(vd['artwork_type'])):
+            m = ModelMapper(ArtWork, vd, getter=lambda param_name: vd[param_name][i])
+            m.map(rename={
+                'type': 'artwork_type',
+                'name': 'artwork_name',
+                'pieces': 'artwork_pieces',
+                'acquisition_type': 'artwork_acq',
+                'acquisition_year': 'art-year',
+                'acquisition_month': 'art-month'
+            })
+
+            # Overwrite _other fields if they are set
+            m.map_one('artwork_acq', 'artwork_acq_other')
+
+            m.create(declaration=d).save()
+
+
 class S4FinancialAndOther(AbstractTask):
     """
     tartozások ?
@@ -137,6 +183,64 @@ class S4FinancialAndOther(AbstractTask):
 
     create_mocked_task = create_mocked_task
 
+    def save_verified_data(self, vd: dict):
+        d = Declaration.objects.get(url=self.url)
+
+        # TODO assuming this declarations has not been verified
+        # otherwise we need to get existing properties, order them by how they were saved (additional field)
+        # and update their properties!
+
+        for i in range(len(vd['inv_name'])):
+            m = ModelMapper(Security, vd, getter=lambda field_name: vd['inv_' + field_name][i])
+            m.map()
+            # Changed fields
+            # inv_curr -> inv_currency
+
+            # Overwrite _other fields if they are set
+            m.map_one('currency', 'currency_other').create(declaration=d).save()
+
+        for i in range(len(vd['sec_name'])):
+            m = ModelMapper(Savings, vd, getter=lambda field_name: vd['sec_' + field_name][i])
+            m.map()
+            # Changed fields
+            # sec_curr -> sec_currency + other
+
+            # Overwrite _other fields if they are set
+            m.map_one('currency', 'currency_other').create(declaration=d).save()
+
+        for i in range(len(vd['cash_value'])):
+            m = ModelMapper(Cash, vd, getter=lambda field_name: vd['cash_' + field_name][i])
+            m.map()
+            # Changed fields:
+            # cash_curr -> cash_currency + other;
+            # cash -> cash_value
+
+            # Overwrite _other fields if they are set
+            m.map_one('currency', 'currency_other').create(declaration=d).save()
+
+        for i in range(len(vd['obligation_type'])):
+            m = ModelMapper(Obligation, vd, getter=lambda param_name: vd['obligation_' + param_name][i])
+            m.map()
+
+            # Changed fields: obligation_curr -> obligation_currency + other
+
+            # Overwrite _other fields if they are set
+            m.map_one('currency', 'currency_other').create(declaration=d).save()
+
+        for i in range(len(vd['debt_type'])):
+            m = ModelMapper(Debt, vd, getter=lambda field_name: vd['debt_' + field_name][i])
+            m.map()
+
+            # Changed fields
+            # debt_curr -> debt_curency
+            # debt_desc -> debt_desciption
+
+            # Overwrite _other fields if they are set
+            m.map_one('currency', 'debt_currency').create(declaration=d).save()
+
+        if vd['financial_other'].strip():
+            d.financial_other = vd['financial_other'].strip()
+
 
 class S5Income(AbstractTask):
     """
@@ -146,14 +250,62 @@ class S5Income(AbstractTask):
 
     create_mocked_task = create_mocked_task
 
+    def save_verified_data(self, vd: dict):
+        d = Declaration.objects.get(url=self.url)
 
-class S6EconomicInterest(AbstractTask):
+        # TODO assuming this declarations has not been verified
+        # otherwise we need to get existing properties, order them by how they were saved (additional field)
+        # and update their properties!
+
+        for i in range(len(vd['profession'])):
+            m = ModelMapper(Income, vd, getter=lambda param_name: vd[param_name][i])
+            m.map()
+
+            # Changed fields
+            # income_curr -> currency
+
+            # Overwrite _other fields if they are set
+            m.map_one('currency', 'currency_other')
+
+            m.create(declaration=d).save()
+
+
+class S6EconomicInterest(AbstractTask): # TODO continue THIS
     """
     érdekeltségi
     """
     task_form_template = 'tasks/economic_interest.html'
 
     create_mocked_task = create_mocked_task
+
+    def save_verified_data(self, vd: dict):
+        d = Declaration.objects.get(url=self.url)
+
+        # TODO assuming this declarations has not been verified
+        # otherwise we need to get existing properties, order them by how they were saved (additional field)
+        # and update their properties!
+        # TODO
+        for i in range(len(vd['co_name'])):
+            m = ModelMapper(EconomicInterest, vd, getter=lambda param_name: vd[param_name][i])
+            m.map()
+
+            # Changes from previous version
+            # co_name -> name
+            # co_location -> location
+            # co_type -> type
+            # int_beginning -> role_beg + other
+            # int_now -> role_now + other
+            # ownership_ratio_beg1 -> ownership_ratio_beg_numerator  + now
+            # ownership_ratio_beg2-> ownership_ratio_beg_denominator  +now
+            # profitshare -> profit_share
+
+            # Overwrite _other fields if they are set
+            m.map_one('type_other', 'type')\
+                .map_one('role_beg', 'role_beg_other')\
+                .map_one('role_now', 'role_now_other')\
+                .map_one('position', 'position_other')
+
+            m.create(declaration=d).save()
 
 
 class S7Benefits(AbstractTask):
@@ -164,3 +316,29 @@ class S7Benefits(AbstractTask):
     task_form_template = 'tasks/benefits.html'
 
     create_mocked_task = create_mocked_task
+
+    def save_verified_data(self, vd: dict):
+        d = Declaration.objects.get(url=self.url)
+
+        # TODO assuming this declarations has not been verified
+        # otherwise we need to get existing properties, order them by how they were saved (additional field)
+        # and update their properties!
+
+        for i in range(len(vd['benefit_date'])):
+            m = ModelMapper(Benefit, vd, getter=lambda fld_name: vd['benefit_' + fld_name][i])
+            m.map().create(declaration=d).save()
+
+            # Changed
+            # benefit_curr -> benefit_currency
+
+        for i in range(len(vd['present_date'])):
+            m = ModelMapper(Present, vd, getter=lambda fld_name: vd['present_' + fld_name][i])
+            m.map().create(declaration=d).save()
+
+        for i in range(len(vd['subs_recipient'])):
+            m = ModelMapper(Subsidy, vd, getter=lambda fld_name: vd['subs_' + fld_name][i])
+            m.map().create(declaration=d).save()
+
+            # Changed fields
+            # subs_reci -> subs_recipient
+            # subs_curr -> subs_currency + other
