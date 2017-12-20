@@ -1,5 +1,6 @@
 import datetime
 
+from moonsheep.models import ModelMapper
 from moonsheep.tasks import AbstractTask
 from moonsheep.verifiers import *
 
@@ -73,82 +74,52 @@ class S3Movables(AbstractTask):
         # and update their properties!
 
         for i in range(len(vd['location'])):
-            fields = {
-                'declaration': d,
-            }
+            m = ModelMapper(Property, vd, getter=lambda param_name: vd[param_name][i])
+            m.map()
 
-            def get(fld_name, param_name=None, convert=lambda x: x):
-                if param_name is None:
-                    param_name = fld_name
-                if vd[param_name][i].strip():
-                    fields[fld_name] = convert(vd[param_name][i].strip())
+            # Overwrite _other fields if they are set
+            m.map_one('area_unit', 'area_unit_other')\
+                .map_one('building_area_unit', 'building_area_unit_other')
 
-            def get_checkbox(fld_name, param_name=None):
-                if param_name is None:
-                    param_name = fld_name
-                # checkboxes won't be in POST if they are not checked
-                # TODO how does it affect processing forms?
-                if param_name in vd and vd[param_name][i]:
-                    fields[fld_name] = True
-                else:
-                    fields[fld_name] = False # not needed if we do NullBooleanField
-
-            get('location')
-            get('area')
-            get('area_unit')
-            get('area_unit', 'area_unit_other')
-
-            get_checkbox('cultivation_belterulet', 'cultivation1')
-            get_checkbox('cultivation_kulterulet', 'cultivation2')
-            get_checkbox('cultivation_lakas', 'cultivation3')
-            get('cultivation_other')
-
-            get_checkbox('building_nature_garazs', 'building_nature1')
-            get_checkbox('building_nature_lakohaz', 'building_nature2')
-            get_checkbox('building_nature_udulo', 'building_nature3')
-            get('building_nature_other')
-
-            get('building_area')
-            get('building_area_unit')
-            get('building_area_unit', 'building_area_unit_other')
-
-            get_checkbox('legal_designation_csaladi_haz', 'legal_designation1')
-            get_checkbox('legal_designation_tarsashaz', 'legal_designation2')
-            get_checkbox('legal_designation_garazs', 'legal_designation3')
-            get('legal_designation_other')
-
-            get_checkbox('legal_status_tulajdonos', 'legal_status1')
-            get_checkbox('legal_status_haszonelvezo', 'legal_status2')
-            get_checkbox('legal_status_berlo', 'legal_status3')
-            get('legal_status_other')
-
-            get('ownership_ratio_numerator', 'ownership_ratio1', convert=int)
-            get('ownership_ratio_denominator', 'ownership_ratio2', convert=int)
-            get('ownership_ratio_percent', 'ownership_ratio_percent', convert=float)
-
-            p = Property(**fields)
+            p = m.create()
+            p.declaration = d
             p.save()
 
             # Property titles
             for j in range(len(vd['acquisition1'][i])):
-                fields = {
-                    'property': p,
-                }
+                m = ModelMapper(PropertyAcquisitionTitle, vd, getter=lambda param_name: vd[param_name][i][j])
+                m.map(rename={
+                    'title': 'acquisition1',
+                    'year': 'acquisition-year',
+                    'month': 'acquisition-month',
+                    'day': 'acquisition-day'
+                })
+                m.map_one('title', 'acquisition-other')
 
-                def get(fld_name, param_name=None, convert=lambda x: x):
-                    if param_name is None:
-                        param_name = fld_name
-                    if vd[param_name][i][j].strip():
-                        fields[fld_name] = convert(vd[param_name][i][j].strip())
+                title = m.create()
+                title.property = p
+                title.save()
 
-                get('title', 'acquisition1')
-                get('title', 'acquisition-other')
-
-                get('year', 'acquisition-year')
-                get('month', 'acquisition-month') # TODO fix default option: choose in forms
-                get('day', 'acquisition-day')
-
-                PropertyAcquisitionTitle(**fields).save()
+            # # Map it when replying data from CrowData
+            # get_checkbox('cultivation_belterulet', 'cultivation_checkbox1')
+            # get_checkbox('cultivation_kulterulet', 'cultivation_checkbox2')
+            # get_checkbox('cultivation_lakas', 'cultivation_checkbox3')
+            #
+            # get_checkbox('building_nature_garazs', 'building_nature1')
+            # get_checkbox('building_nature_lakohaz', 'building_nature2')
+            # get_checkbox('building_nature_udulo', 'building_nature3')
+            #
+            #
+            # get_checkbox('legal_designation_csaladi_haz', 'legal_designation1')
+            # get_checkbox('legal_designation_tarsashaz', 'legal_designation2')
+            # get_checkbox('legal_designation_garazs', 'legal_designation3')
+            #
+            # get_checkbox('legal_status_tulajdonos', 'legal_status1')
+            # get_checkbox('legal_status_haszonelvezo', 'legal_status2')
+            # get_checkbox('legal_status_berlo', 'legal_status3')
+            #
+            # get('ownership_ratio_numerator', 'ownership_ratio1', convert=int)
+            # get('ownership_ratio_denominator', 'ownership_ratio2', convert=int)
 
 
     # TODO feedback 'something_wrong': ['']}
