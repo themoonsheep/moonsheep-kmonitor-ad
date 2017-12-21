@@ -31,7 +31,7 @@ if DEBUG:
     INSTALLED_APPS += ['debug_toolbar', 'django_extensions']
     MIDDLEWARE.insert(1, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
-SECRET_KEY = 'WHATEVER'
+SECRET_KEY = 'https://uploads.skyhighnetworks.com/wp-content/uploads/2015/08/06195203/Bart-Chalkboard-for-Blog-Post.png'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

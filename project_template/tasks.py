@@ -285,7 +285,7 @@ class S6EconomicInterest(AbstractTask): # TODO continue THIS
         # otherwise we need to get existing properties, order them by how they were saved (additional field)
         # and update their properties!
         # TODO
-        for i in range(len(vd['co_name'])):
+        for i in range(len(vd['name'])):
             m = ModelMapper(EconomicInterest, vd, getter=lambda param_name: vd[param_name][i])
             m.map()
 
@@ -300,7 +300,7 @@ class S6EconomicInterest(AbstractTask): # TODO continue THIS
             # profitshare -> profit_share
 
             # Overwrite _other fields if they are set
-            m.map_one('type_other', 'type')\
+            m.map_one('type', 'type_other')\
                 .map_one('role_beg', 'role_beg_other')\
                 .map_one('role_now', 'role_now_other')\
                 .map_one('position', 'position_other')

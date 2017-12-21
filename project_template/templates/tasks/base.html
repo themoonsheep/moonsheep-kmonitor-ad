@@ -1,9 +1,10 @@
 {% load static %}
+{% load moonsheep_token %}{#  TODO add it to project_template #}
 <form name="elForma" id="elForm" action="{{ form.get_absolute_url }}" method="post" role="form" class="center-block">
-  <p class="step-x-y"></p>
-
-  <p class="step-title"></p>
+  {% moonsheep_token task %}
   {% csrf_token %}
+  <p class="step-x-y"></p>
+  <p class="step-title"></p>
   <div id="slidedform" class="form">
     <ul id="slide-list">
       <li class="container-fluid">
