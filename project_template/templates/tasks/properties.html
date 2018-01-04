@@ -151,7 +151,7 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <h2>Ingatlan jogi jellege</h2>
+            <label>Ingatlan jogi jellege</label>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="legal_designation_csaladi_haz[]"> családi ház
@@ -178,7 +178,7 @@
           </div>
 
           <div class="col-md-6">
-            <h2>Nyilatkozó jogállása</h2>
+            <label>Nyilatkozó jogállása</label>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="legal_status_tulajdonos[]"> tulajdonos
@@ -207,7 +207,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <h2>Tulajdoni hányad</h2>
+            <label>Tulajdoni hányad</label>
           </div>
           <div class="col-md-2">
             <input class="form-control" type="text" name="ownership_ratio_numerator[]">
@@ -226,14 +226,12 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12">
+        <div class="row panel panel-default">
+          <div class="col-md-12 panel-heading">
             <h2>Szerzés jogcíme</h2>
           </div>
-          <div class="col-md-12">
-
+          <div class="col-md-12 panel-body">
             <div class="row">
-
               <div class="col-md-3">
                 <label>Szerzés jogcíme</label>
                 <select id="select1" class=" form-control" name="acquisition1[0][]" data-live-search="true"
@@ -268,45 +266,9 @@
                        min="1" max="31">
               </div>
             </div>
+          </div>
+          <div class="panel-footer">
             <button class="btn btn-default repeater" type="button"><i class="fa fa-plus"></i>1 jogcím</button>
-
-          </div>
-
-
-        </div>
-
-        <div class="row property-type">
-          <div class="col-md-12">
-            <h2>Melyik típusba sorolnád az ingatlant?</h2>
-          </div>
-
-          <div class="col-md-4">
-            <div class="radio">
-              <label class="center-block text-center">
-                <i class="fa fa-5x fa-home"></i><br/>
-                <input type="radio" id="property_category" name="property_category[]" value="home">
-              </label>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="radio">
-              <label class="center-block text-center">
-                <i class="fa fa-5x fa-map-o"></i><br/>
-                <input type="radio" name="property_category[]" value="map">
-              </label>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="radio">
-              <label class="center-block text-center">
-                <i class="fa fa-5x fa-asterisk"></i><br/>
-                <input type="radio" name="property_category[]" value="asterisk">
-              </label>
-            </div>
-          </div>
-          <div class="col-md-12">
-        <textarea class="feedback-flag form-control" rows="4" name="something_wrong[]"
-                  placeholder="Láttál valami gyanúsat? Volt valami, ami nem tiszta?"></textarea>
           </div>
         </div>
       </div>

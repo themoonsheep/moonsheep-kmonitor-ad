@@ -94,11 +94,12 @@
 
                 <select class="form-control" name="artwork_type[]"
                         title="Védett műalkotás, védett gyűjtemény, egyéb értékes ingóság jellege">
-                  <option value="" selected></option>
+                  <option value="" selected>Védett műalkotás, védett gyűjtemény, egyéb értékes ingóság jellege</option>
                   <option>egyedi alkotás</option>
                   <option>gyűjtemény</option>
                   <option>egyéb értéktárgy</option>
                 </select>
+                {#  TODO probably add egyeb #}
               </div>
               <div class="col-md-4">
                 <input class="form-control" name="artwork_name[]" placeholder="Megnevezés" type="text">
@@ -120,8 +121,7 @@
                 {% include 'tasks/snippets/month_select.html' with class="form-control selectpicker" name='art-month[]' placeholder='Hónap' %}
               </div>
             </div>
-            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 műtárgy</button>
-
+            <button class="btn btn-default repeater"><i class="fa fa-plus"></i>1 ingóság</button>
           </div>
         </div>
       </div>
