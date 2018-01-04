@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 from .base import *
+import dj_database_url
+import os
 
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-SECRET_KEY = '${SECRET_KEY}'
+assert 'SECRET_KEY' in os.environ, 'Set SECRET_KEY variable in your environment file!'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # To be double sure
 DEBUG = TEMPLATE_DEBUG = False
@@ -29,13 +32,4 @@ WSGI_APPLICATION = 'project_template.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'moonsheep',
-#         'USER': 'moonsheep',
-#         'PASSWORD': 'moonsheep',
-#         'HOST': 'postgres',
-#         'PORT': 5432,
-#     }
-# }
+DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
