@@ -197,8 +197,6 @@ class Property(models.Model):
     ownership_ratio_denominator = MyIntegerField()
     ownership_ratio_percent = PercentField()
 
-    category = MyCharField()
-
     # acquisition_titles are in a separate model: PropertyAcquisitionTitle
 
     def __str__(self):

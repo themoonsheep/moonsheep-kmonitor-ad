@@ -11,7 +11,7 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            # TODO
+            # TODO statistics
             'reporting_year': 'reporting_year',
             'stats_counted_from': '2015',
             'stats': {
@@ -31,7 +31,7 @@ class TaskIntroView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            # TODO
+            # TODO intro to show the politician
             'mp': {
                 'name': 'Brominator',
                 'image_url': 'https://vignette.wikia.nocookie.net/broforce/images/7/74/Brominator_face.png/revision/latest?cb=20150705030550',

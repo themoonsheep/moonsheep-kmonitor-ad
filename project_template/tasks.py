@@ -270,7 +270,7 @@ class S5Income(AbstractTask):
             m.create(declaration=d).save()
 
 
-class S6EconomicInterest(AbstractTask): # TODO continue THIS
+class S6EconomicInterest(AbstractTask):
     """
     érdekeltségi
     """
