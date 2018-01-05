@@ -51,7 +51,7 @@
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/static/iealert/style.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'iealert/style.css' %}" />
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css"/>
 
@@ -113,12 +113,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script src="{% static "js/crowdata.js" %}"></script>
     <script src="{% static "js/simpleslide.js" %}"></script>
     <script src="{% static "js/kmonitor.script.js" %}"></script>
-    <script src="{% static "js/jquery.cookie.js" %}"></script>
     <script src="{% static "js/autoNumeric-min.js" %}"></script>
-    <script src="/static/js/iealert.min.js"></script>
+    <script src="{% static "js/iealert.min.js" %}"></script>
 
  <!--
     <script>
