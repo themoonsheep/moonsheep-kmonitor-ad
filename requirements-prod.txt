@@ -1,3 +1,4 @@
 -r requirements-base.txt
 psycopg2
 dj-database-url~=0.4.2
+gunicorn
