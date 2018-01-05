@@ -33,3 +33,6 @@ WSGI_APPLICATION = 'project_template.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
+
+# Files from STATIC_ROOT should be served under STATIC_URL = '/static/'
+STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'staticfiles'))

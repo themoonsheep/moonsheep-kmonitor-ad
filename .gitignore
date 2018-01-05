@@ -8,5 +8,6 @@ node_modules/
 *.egg-info
 .eggs/
 build/
+staticfiles/
 
 requirements-local.txt
