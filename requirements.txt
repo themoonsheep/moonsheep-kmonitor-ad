@@ -3,3 +3,4 @@
 -r requirements-prod.txt
 
 whitenoise ~= 3.3
+django-debug-toolbar # TODO temporary
