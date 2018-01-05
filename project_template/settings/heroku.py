@@ -18,6 +18,8 @@ MOONSHEEP_DEVELOPMENT_MODE = True
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+DEBUG = TEMPLATE_DEBUG = True
+
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': True,
