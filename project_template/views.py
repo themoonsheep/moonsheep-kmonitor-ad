@@ -49,9 +49,12 @@ class TaskIntroView(TemplateView):
 class TaskView(MTaskView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'mp': Politician.objects.get_or_none(id=self.task.data['politician_id']),
-        })
+
+        if 'politician_id' in self.task.data:
+            context.update({
+                'mp': Politician.objects.get_or_none(id=self.task.data['politician_id']),
+            })
+
         return context
 
     def get_success_url(self):
