@@ -1,4 +1,4 @@
-web: gunicorn opora.wsgi -w 2 --preload --log-level=INFO --log-file -
+web: gunicorn project_template.wsgi --preload
 
 # with NewRelic monitoring
-# web: newrelic-admin run-program gunicorn opora.wsgi -w 2 --preload --log-level=INFO
+# web: newrelic-admin run-program gunicorn project_template.wsgi -w 2 --preload --log-level=INFO

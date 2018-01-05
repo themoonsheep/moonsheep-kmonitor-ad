@@ -1,3 +1,5 @@
 # Heroku requires requirements.txt
 #   until https://devcenter.heroku.com/articles/heroku-yml-build-manifest gets Python support
 -r requirements-prod.txt
+
+whitenoise ~= 3.3
