@@ -1,5 +1,9 @@
+{% extends "task.html" %}
+
 {% load static %}
 {% load moonsheep %}{#  TODO add it to project_template #}
+
+{% block task-form %}
 <form name="elForma" id="elForm" action="{{ form.get_absolute_url }}" method="post" role="form" class="center-block">
   {% moonsheep_token task %}
   {% csrf_token %}
@@ -98,3 +102,4 @@
     <br/>
   </div>
 </form>
+{% endblock %}

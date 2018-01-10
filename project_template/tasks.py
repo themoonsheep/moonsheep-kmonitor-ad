@@ -27,7 +27,7 @@ class S1PersonalData(AbstractTask):
     """
     Személyes információk
     """
-    task_form_template = 'tasks/personal_data.html'
+    template_name = 'tasks/personal_data.html'
 
     create_mocked_task = create_mocked_task
 
@@ -46,7 +46,7 @@ class S2Properties(AbstractTask):
     """
     Ingatlanok
     """
-    task_form_template = 'tasks/properties.html'
+    template_name = 'tasks/properties.html'
 
     create_mocked_task = create_mocked_task
 
@@ -106,14 +106,14 @@ class S2Properties(AbstractTask):
             # get('ownership_ratio_denominator', 'ownership_ratio2', convert=int)
 
 
-    # TODO feedback 'something_wrong': ['']}
+# TODO feedback 'something_wrong': ['']}
 
 
 class S3Movables(AbstractTask):
     """
     Nagy értékű ingóságok
     """
-    task_form_template = 'tasks/movables.html'
+    template_name = 'tasks/movables.html'
 
     create_mocked_task = create_mocked_task
 
@@ -179,7 +179,7 @@ class S4FinancialAndOther(AbstractTask):
 
     egyéb közlendők (other)
     """
-    task_form_template = 'tasks/financial.html'
+    template_name = 'tasks/financial.html'
 
     create_mocked_task = create_mocked_task
 
@@ -246,7 +246,7 @@ class S5Income(AbstractTask):
     """
     Jövedelemnyilatkozat
     """
-    task_form_template = 'tasks/income.html'
+    template_name = 'tasks/income.html'
 
     create_mocked_task = create_mocked_task
 
@@ -274,7 +274,7 @@ class S6EconomicInterest(AbstractTask):
     """
     érdekeltségi
     """
-    task_form_template = 'tasks/economic_interest.html'
+    template_name = 'tasks/economic_interest.html'
 
     create_mocked_task = create_mocked_task
 
@@ -313,7 +313,7 @@ class S7Benefits(AbstractTask):
     juttatásról, ajándékról, támogatásról
     benefits, gifts, or subsidies
     """
-    task_form_template = 'tasks/benefits.html'
+    template_name = 'tasks/benefits.html'
 
     create_mocked_task = create_mocked_task
 

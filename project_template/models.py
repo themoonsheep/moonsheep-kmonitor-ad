@@ -1,101 +1,35 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 
-
-# TODO cleaning: is it needed?
-class MyManager(models.Manager):
-    def get_or_none(self, **kwargs):
-        try:
-            return self.get(**kwargs)
-        except ObjectDoesNotExist:
-            return None
-
-    def get_or_404(self, *args, **kwargs):
-        try:
-            return self.get(*args, **kwargs)
-        except self.model.DoesNotExist:
-            raise Http404('No %s matches the given query.' % self.model._meta.object_name)
-
-
-# TODO Move these to Moonsheep
-class MyIntegerField(models.IntegerField):
-    def __init__(self, *args, **kwargs):
-        if 'blank' not in kwargs:
-            kwargs['blank'] = True
-        if 'null' not in kwargs:
-            kwargs['null'] = True
-
-        super().__init__(*args, **kwargs)
-
-
-class MyCharField(models.CharField):
-    """
-    By default can be blank and null. Default length: 128
-    """
-
-    def __init__(self, *args, **kwargs):
-        if 'blank' not in kwargs:
-            kwargs['blank'] = True
-        if 'null' not in kwargs:
-            kwargs['null'] = True
-        if 'max_length' not in kwargs:
-            kwargs['max_length'] = 128
-
-        super().__init__(*args, **kwargs)
-
-
-class PercentField(models.DecimalField):
-    def __init__(self, *args, **kwargs):
-        if 'blank' not in kwargs:
-            kwargs['blank'] = True
-        if 'null' not in kwargs:
-            kwargs['null'] = True
-        if 'decimal_places' not in kwargs:
-            kwargs['decimal_places'] = 2
-        if 'max_digits' not in kwargs:
-            kwargs['max_digits'] = 3
-
-        super().__init__(*args, **kwargs)
-
-
-class AmountField(models.DecimalField):
-    def __init__(self, *args, **kwargs):
-        if 'blank' not in kwargs:
-            kwargs['blank'] = True
-        if 'null' not in kwargs:
-            kwargs['null'] = True
-        if 'decimal_places' not in kwargs:
-            kwargs['decimal_places'] = 2
-        if 'max_digits' not in kwargs:
-            kwargs['max_digits'] = 12
-
-        super().__init__(*args, **kwargs)
+from .fields import AmountField, MyCharField, MyIntegerField, PercentField
+from .managers import MyManager
 
 
 class Relative(models.Model):
-    name = models.CharField(_('Full name'), max_length=128, )
-    spouse_of = models.OneToOneField("Declaration", related_name='spouse', null=True, blank=True,
-                                 on_delete=models.SET_NULL)
-    child_of = models.ForeignKey("Declaration", related_name='children', null=True, blank=True,
-                                 on_delete=models.SET_NULL)
+    name = models.CharField(_('Full name'), max_length=128)
+    spouse_of = models.OneToOneField(
+        "Declaration", related_name='spouse', null=True, blank=True, on_delete=models.SET_NULL
+    )
+    child_of = models.ForeignKey(
+        "Declaration", related_name='children', null=True, blank=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return self.name
 
 
 class Politician(models.Model):
-    name = models.CharField(_('Full name'), max_length=128, )
+    name = models.CharField(_('Full name'), max_length=128)
     """
     Used in most of the urls of parliamentary website
     """
-    parliamentary_id = models.CharField(_('Parliamentary website ID'), max_length=24, )
-    image_url = models.URLField(_('Image URL'), max_length=256, )
-    party = models.ForeignKey("Party", related_name='members',
-                              null=True, blank=True,
-                              verbose_name='Current MPs party', on_delete=models.PROTECT)
-    parldata_id = models.CharField(_('External ParlData API ID'), max_length=64, )
+    parliamentary_id = models.CharField(_('Parliamentary website ID'), max_length=24)
+    image_url = models.URLField(_('Image URL'), max_length=256)
+    party = models.ForeignKey(
+        "Party", related_name='members', verbose_name='Current MPs party', on_delete=models.PROTECT,
+        null=True, blank=True
+    )
+    parldata_id = models.CharField(_('External ParlData API ID'), max_length=64)
 
     # Audit timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -112,9 +46,11 @@ class Politician(models.Model):
         from datetime import date, timedelta
         date_filled = date(int(year) + 1, 1, 1) - timedelta(days=1)  # last day of the year
 
-        return (template.format(id=self.parliamentary_id,
-                                date=date_filled.strftime('%y%m%d'),
-                                year=year), date_filled)
+        return template.format(
+            id=self.parliamentary_id,
+            date=date_filled.strftime('%y%m%d'),
+            year=year
+        ), date_filled
 
     class Meta:
         verbose_name = _('Politician')
@@ -122,9 +58,9 @@ class Politician(models.Model):
 
 
 class Party(models.Model):
-    name = models.CharField(_('Full name'), max_length=128, )
-    short_name = models.CharField(_('Short name'), max_length=128, )
-    parldata_id = models.CharField(_('External ParlData API ID'), max_length=64, )
+    name = models.CharField(_('Full name'), max_length=128)
+    short_name = models.CharField(_('Short name'), max_length=128)
+    parldata_id = models.CharField(_('External ParlData API ID'), max_length=64)
 
     # Audit timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -143,8 +79,7 @@ class Party(models.Model):
 class Declaration(models.Model):
     url = models.URLField(max_length=500)
 
-    politician = models.ForeignKey("Politician", related_name='declarations',
-                                   on_delete=models.PROTECT)
+    politician = models.ForeignKey("Politician", related_name='declarations', on_delete=models.PROTECT)
 
     for_year = models.IntegerField()
 

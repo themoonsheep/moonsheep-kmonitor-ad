@@ -7,6 +7,7 @@ node_modules/
 .coverage
 *.egg-info
 .eggs/
+.env
 build/
 staticfiles/
 
