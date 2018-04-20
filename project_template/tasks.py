@@ -1,10 +1,7 @@
-import datetime
-
 from moonsheep.models import ModelMapper
+from moonsheep.register import base_task, initial_task
 from moonsheep.tasks import AbstractTask
-from moonsheep.verifiers import *
 
-from .forms import *
 from .models import *
 
 
@@ -23,11 +20,14 @@ def create_mocked_task(self, base):
     return base
 
 
+@base_task.register
+@initial_task.register
 class S1PersonalData(AbstractTask):
     """
     Személyes információk
     """
     template_name = 'tasks/personal_data.html'
+    verbose_name = 'personal data'
 
     create_mocked_task = create_mocked_task
 
@@ -42,11 +42,14 @@ class S1PersonalData(AbstractTask):
                 Relative.objects.get_or_create(child_of=d, name=child.strip())
 
 
+@initial_task.register
+@base_task.register
 class S2Properties(AbstractTask):
     """
     Ingatlanok
     """
     template_name = 'tasks/properties.html'
+    verbose_name = 'properties'
 
     create_mocked_task = create_mocked_task
 
@@ -109,11 +112,14 @@ class S2Properties(AbstractTask):
 # TODO feedback 'something_wrong': ['']}
 
 
+@initial_task.register
+@base_task.register
 class S3Movables(AbstractTask):
     """
     Nagy értékű ingóságok
     """
     template_name = 'tasks/movables.html'
+    verbose_name = 'movables'
 
     create_mocked_task = create_mocked_task
 
@@ -171,6 +177,8 @@ class S3Movables(AbstractTask):
             m.create(declaration=d).save()
 
 
+@initial_task.register
+@base_task.register
 class S4FinancialAndOther(AbstractTask):
     """
     tartozások ?
@@ -180,6 +188,7 @@ class S4FinancialAndOther(AbstractTask):
     egyéb közlendők (other)
     """
     template_name = 'tasks/financial.html'
+    verbose_name = 'financial and other'
 
     create_mocked_task = create_mocked_task
 
@@ -242,11 +251,14 @@ class S4FinancialAndOther(AbstractTask):
             d.financial_other = vd['financial_other'].strip()
 
 
+@initial_task.register
+@base_task.register
 class S5Income(AbstractTask):
     """
     Jövedelemnyilatkozat
     """
     template_name = 'tasks/income.html'
+    verbose_name = 'income'
 
     create_mocked_task = create_mocked_task
 
@@ -270,11 +282,14 @@ class S5Income(AbstractTask):
             m.create(declaration=d).save()
 
 
+@initial_task.register
+@base_task.register
 class S6EconomicInterest(AbstractTask):
     """
     érdekeltségi
     """
     template_name = 'tasks/economic_interest.html'
+    verbose_name = 'economic interest'
 
     create_mocked_task = create_mocked_task
 
@@ -308,12 +323,15 @@ class S6EconomicInterest(AbstractTask):
             m.create(declaration=d).save()
 
 
+@initial_task.register
+@base_task.register
 class S7Benefits(AbstractTask):
     """
     juttatásról, ajándékról, támogatásról
     benefits, gifts, or subsidies
     """
     template_name = 'tasks/benefits.html'
+    verbose_name = 'benefits'
 
     create_mocked_task = create_mocked_task
 

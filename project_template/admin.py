@@ -6,7 +6,6 @@ from django.template import RequestContext
 from django.urls import path
 from .models import *
 
-# Register your models here.
 
 # TODO move this to project_template
 class MyAdminSite(admin.AdminSite):
@@ -53,7 +52,7 @@ site.register(Group)
 
 @admin.register(Politician, site=site)
 class PoliticianAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'party', 'parliamentary_id', 'created_at', 'updated_at']
 
 
 site.register(Relative)
