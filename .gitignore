@@ -10,5 +10,7 @@ node_modules/
 .env
 build/
 staticfiles/
+shared/
 
 requirements-local.txt
+dbdata.json

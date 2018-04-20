@@ -17,7 +17,7 @@ import os
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 assert 'SECRET_KEY' in os.environ, 'Set SECRET_KEY variable in your environment file!'
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # To be double sure
 DEBUG = TEMPLATE_DEBUG = False

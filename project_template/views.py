@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.urls import reverse
 from moonsheep.views import TaskView as MTaskView
@@ -50,7 +49,7 @@ class TaskView(MTaskView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if 'politician_id' in self.task.data:
+        if self.task and 'politician_id' in self.task.data:
             context.update({
                 'mp': Politician.objects.get_or_none(id=self.task.data['politician_id']),
             })

@@ -18,24 +18,27 @@ class Relative(models.Model):
         return self.name
 
 
-class Politician(models.Model):
-    name = models.CharField(_('Full name'), max_length=128)
+class Politician(models.Model):  # crowdataapp_politician.json
+    name = models.CharField(_('Full name'), max_length=128)  # crowdataapp_politician.json [name]
     """
     Used in most of the urls of parliamentary website
     """
-    parliamentary_id = models.CharField(_('Parliamentary website ID'), max_length=24)
-    image_url = models.URLField(_('Image URL'), max_length=256)
+    parliamentary_id = models.CharField(_('Parliamentary website ID'), max_length=24)  # crowdataapp_politician.json [parliamentary_id]
+    image_url = models.URLField(_('Image URL'), max_length=256)  # crowdataapp_politician.json [image_url]
     party = models.ForeignKey(
         "Party", related_name='members', verbose_name='Current MPs party', on_delete=models.PROTECT,
         null=True, blank=True
-    )
-    parldata_id = models.CharField(_('External ParlData API ID'), max_length=64)
+    )  # crowdataapp_politician.json [party_id]
+    parldata_id = models.CharField(_('External ParlData API ID'), max_length=64)  # crowdataapp_politician.json [parldata_id]
 
     # Audit timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)  # crowdataapp_politician.json [created_at]
+    updated_at = models.DateTimeField(auto_now=True)  # crowdataapp_politician.json [updated_at]
 
     objects = MyManager()
+
+    def __str__(self):
+        return self.name
 
     def create_asset_declaration_url(self, year):
         template = 'http://www.parlament.hu/internet/cplsql/ogy_vagyonpub.vagyon_kiir_egys' \
@@ -57,7 +60,7 @@ class Politician(models.Model):
         verbose_name_plural = _('Politicians')
 
 
-class Party(models.Model):
+class Party(models.Model):  # crowdataapp_party.json
     name = models.CharField(_('Full name'), max_length=128)
     short_name = models.CharField(_('Short name'), max_length=128)
     parldata_id = models.CharField(_('External ParlData API ID'), max_length=64)
@@ -76,12 +79,13 @@ class Party(models.Model):
         verbose_name_plural = _('Political Parties')
 
 
-class Declaration(models.Model):
-    url = models.URLField(max_length=500)
+class Declaration(models.Model):  # crowdataapp_document.json
+    url = models.URLField(max_length=500)  # crowdataapp_document.json [url]
 
+    # crowdataapp_document.json [name] [politician_id]
     politician = models.ForeignKey("Politician", related_name='declarations', on_delete=models.PROTECT)
 
-    for_year = models.IntegerField()
+    for_year = models.IntegerField()  # crowdataapp_document.json [name]
 
     # Personal Data
     # spouse and children foreign link exists in Relative class

@@ -26,6 +26,8 @@ INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
 AUTH_PASSWORD_VALIDATORS = []
 
+ALLOWED_HOSTS = '*'
+
 # Add debug toolbar
 if DEBUG:
     INSTALLED_APPS += ['debug_toolbar', 'django_extensions']
