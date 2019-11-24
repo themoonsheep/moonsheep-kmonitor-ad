@@ -49,9 +49,9 @@ class TaskView(MTaskView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if self.task and 'politician_id' in self.task.data:
+        if self.task_type and 'politician_id' in self.task_type.params:
             context.update({
-                'mp': Politician.objects.get_or_none(id=self.task.data['politician_id']),
+                'mp': Politician.objects.get_or_none(id=self.task_type.params['politician_id']),
             })
 
         return context

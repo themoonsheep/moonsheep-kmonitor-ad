@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from moonsheep.models import DocumentModel
 from .fields import AmountField, MyCharField, MyIntegerField, PercentField
 from .managers import MyManager
 
@@ -79,8 +80,10 @@ class Party(models.Model):  # crowdataapp_party.json
         verbose_name_plural = _('Political Parties')
 
 
-class Declaration(models.Model):  # crowdataapp_document.json
-    url = models.URLField(max_length=500)  # crowdataapp_document.json [url]
+class Declaration(DocumentModel):  # crowdataapp_document.json
+    # DocumentModel fields:
+    # url
+    # progress
 
     # crowdataapp_document.json [name] [politician_id]
     politician = models.ForeignKey("Politician", related_name='declarations', on_delete=models.PROTECT)

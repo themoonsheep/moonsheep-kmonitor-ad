@@ -1,27 +1,27 @@
-from moonsheep.models import ModelMapper
-from moonsheep.register import base_task, initial_task
-from moonsheep.tasks import AbstractTask
+from django.utils.decorators import classproperty
+
+from moonsheep.mapper import ModelMapper
+from moonsheep.tasks import AbstractTask, register_task
 
 from .models import *
 
+EXAMPLE_URL = 'http://www.parlament.hu/internet/cplsql/ogy_vagyonpub.vagyon_kiir_egys?P_FNEV=/2016/l001_j0161231k.pdf&p_cont=application/pdf'
 
-def create_mocked_task(self, base):
+
+def mocked_params(cls) -> dict:
     if Declaration.objects.exists():
         d = Declaration.objects.order_by('?').first()
-        base['info'].update({
+        return {
             'url': d.url,
             'politician_id': d.politician.id
-        })
+        }
     else:
-        base['info'].update({
-            'url': 'http://www.parlament.hu/internet/cplsql/ogy_vagyonpub.vagyon_kiir_egys?P_FNEV=/2016/l001_j0161231k.pdf&p_cont=application/pdf',
-        })
-
-    return base
+        return {
+            'url': EXAMPLE_URL,
+        }
 
 
-@base_task.register
-@initial_task.register
+@register_task()
 class S1PersonalData(AbstractTask):
     """
     Személyes információk
@@ -29,7 +29,11 @@ class S1PersonalData(AbstractTask):
     template_name = 'tasks/personal_data.html'
     verbose_name = 'personal data'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    # TODO would be good to expect this method only when task has children (anyhow we would need a way to define parent-children relationships)
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
         d = Declaration.objects.get(url=self.url)
@@ -42,8 +46,7 @@ class S1PersonalData(AbstractTask):
                 Relative.objects.get_or_create(child_of=d, name=child.strip())
 
 
-@initial_task.register
-@base_task.register
+@register_task()
 class S2Properties(AbstractTask):
     """
     Ingatlanok
@@ -51,10 +54,13 @@ class S2Properties(AbstractTask):
     template_name = 'tasks/properties.html'
     verbose_name = 'properties'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
-        d = Declaration.objects.get(url=self.url)
+        d = Declaration.objects.get(url=self.params['url'])
 
         # TODO assuming this declarations has not been verified
         # otherwise we need to get existing properties, order them by how they were saved (additional field)
@@ -65,7 +71,7 @@ class S2Properties(AbstractTask):
             m.map()
 
             # Overwrite _other fields if they are set
-            m.map_one('area_unit', 'area_unit_other')\
+            m.map_one('area_unit', 'area_unit_other') \
                 .map_one('building_area_unit', 'building_area_unit_other')
 
             p = m.create()
@@ -112,8 +118,7 @@ class S2Properties(AbstractTask):
 # TODO feedback 'something_wrong': ['']}
 
 
-@initial_task.register
-@base_task.register
+@register_task()
 class S3Movables(AbstractTask):
     """
     Nagy értékű ingóságok
@@ -121,10 +126,13 @@ class S3Movables(AbstractTask):
     template_name = 'tasks/movables.html'
     verbose_name = 'movables'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
-        d = Declaration.objects.get(url=self.url)
+        d = Declaration.objects.get(url=self.params['url'])
 
         # TODO assuming this declarations has not been verified
         # otherwise we need to get existing objects, order them by how they were saved (additional field)
@@ -177,8 +185,7 @@ class S3Movables(AbstractTask):
             m.create(declaration=d).save()
 
 
-@initial_task.register
-@base_task.register
+@register_task()
 class S4FinancialAndOther(AbstractTask):
     """
     tartozások ?
@@ -187,13 +194,17 @@ class S4FinancialAndOther(AbstractTask):
 
     egyéb közlendők (other)
     """
+
     template_name = 'tasks/financial.html'
     verbose_name = 'financial and other'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
-        d = Declaration.objects.get(url=self.url)
+        d = Declaration.objects.get(url=self.params['url'])
 
         # TODO assuming this declarations has not been verified
         # otherwise we need to get existing properties, order them by how they were saved (additional field)
@@ -251,19 +262,22 @@ class S4FinancialAndOther(AbstractTask):
             d.financial_other = vd['financial_other'].strip()
 
 
-@initial_task.register
-@base_task.register
+@register_task()
 class S5Income(AbstractTask):
     """
     Jövedelemnyilatkozat
     """
+
     template_name = 'tasks/income.html'
     verbose_name = 'income'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
-        d = Declaration.objects.get(url=self.url)
+        d = Declaration.objects.get(url=self.params['url'])
 
         # TODO assuming this declarations has not been verified
         # otherwise we need to get existing properties, order them by how they were saved (additional field)
@@ -282,19 +296,22 @@ class S5Income(AbstractTask):
             m.create(declaration=d).save()
 
 
-@initial_task.register
-@base_task.register
+@register_task()
 class S6EconomicInterest(AbstractTask):
     """
     érdekeltségi
     """
+
     template_name = 'tasks/economic_interest.html'
     verbose_name = 'economic interest'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
-        d = Declaration.objects.get(url=self.url)
+        d = Declaration.objects.get(url=self.params['url'])
 
         # TODO assuming this declarations has not been verified
         # otherwise we need to get existing properties, order them by how they were saved (additional field)
@@ -315,28 +332,31 @@ class S6EconomicInterest(AbstractTask):
             # profitshare -> profit_share
 
             # Overwrite _other fields if they are set
-            m.map_one('type', 'type_other')\
-                .map_one('role_beg', 'role_beg_other')\
-                .map_one('role_now', 'role_now_other')\
+            m.map_one('type', 'type_other') \
+                .map_one('role_beg', 'role_beg_other') \
+                .map_one('role_now', 'role_now_other') \
                 .map_one('position', 'position_other')
 
             m.create(declaration=d).save()
 
 
-@initial_task.register
-@base_task.register
+@register_task()
 class S7Benefits(AbstractTask):
     """
     juttatásról, ajándékról, támogatásról
     benefits, gifts, or subsidies
     """
+
     template_name = 'tasks/benefits.html'
     verbose_name = 'benefits'
 
-    create_mocked_task = create_mocked_task
+    mocked_params = classproperty(mocked_params)
+
+    def average_subtasks_count(self):
+        0
 
     def save_verified_data(self, vd: dict):
-        d = Declaration.objects.get(url=self.url)
+        d = Declaration.objects.get(url=self.params['url'])
 
         # TODO assuming this declarations has not been verified
         # otherwise we need to get existing properties, order them by how they were saved (additional field)

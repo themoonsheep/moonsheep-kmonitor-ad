@@ -17,6 +17,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 ALLOWED_HOSTS = []
 
+from moonsheep.settings import *  # NOQA
+
+MOONSHEEP.update({
+    'APP': 'project_template'  # TODO list from document models instead of defining here
+})
+
 
 # Application definition
 
@@ -28,8 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'project_template',
     'moonsheep',
+    'project_template',
 ]
 
 MIDDLEWARE = [
@@ -96,11 +102,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# moonsheep settings
-# MOONSHEEP_TASK_SOURCE = 'pybossa'  # 'random' / 'pybossa' -> default 'random'
-
-# if pybossa is selected
-PYBOSSA_URL = 'http://localhost:5000/'
-PYBOSSA_PROJECT_ID = 1
-PYBOSSA_API_KEY = os.environ.get('PYBOSSA_API_KEY')

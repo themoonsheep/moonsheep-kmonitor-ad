@@ -12,15 +12,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 from .base import *
 
-"""
-If set Moonsheep won't communicate with PyBossa and will:
-1. serve random mocked tasks
-2. send form submissions straight to the verification
-   won't test cross-checking as there is going to be only one entry, but will allow to test the whole flow  
-"""
-MOONSHEEP_DEVELOPMENT_MODE = True
-
 DEBUG = TEMPLATE_DEBUG = True
+
+MOONSHEEP['DEV_ROTATE_TASKS'] = True
 
 INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
@@ -39,9 +33,17 @@ SECRET_KEY = 'https://uploads.skyhighnetworks.com/wp-content/uploads/2015/08/061
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'kmonitor',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5433',
     }
 }
 
